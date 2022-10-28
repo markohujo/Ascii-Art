@@ -1,4 +1,4 @@
-package Main
+package AsciiArtApp
 
 object Main extends App {
   println("Hello there")
