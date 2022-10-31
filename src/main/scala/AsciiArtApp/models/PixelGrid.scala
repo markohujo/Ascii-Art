@@ -17,11 +17,14 @@ class PixelGrid[T <: Pixel](pixels: Seq[Seq[T]]) {
 
   def transform[S <: Pixel](transformer: T => S): PixelGrid[S] = {
     var newPixels: Seq[Seq[S]] = Seq.empty[Seq[S]]
-    for (pixelRow <- pixels; pixel <- pixelRow) {
-      var newPixelRow: Seq[S] = Seq.empty[S]
-      newPixelRow = newPixelRow.appended(transformer(pixel))
-      newPixels = newPixels.appended(newPixelRow)
+
+    for (row <- pixels) {
+      var newRow: Seq[S] = Seq.empty[S]
+      for (pixel <- row)
+        newRow = newRow.appended(transformer(pixel))
+      newPixels = newPixels.appended(newRow)
     }
+
     new PixelGrid[S](newPixels)
   }
 }
