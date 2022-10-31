@@ -5,5 +5,5 @@ package AsciiArtApp.converters
  * @tparam S convert to
  */
 trait Converter[T, S] {
-
+  def convert(from: T): S
 }
