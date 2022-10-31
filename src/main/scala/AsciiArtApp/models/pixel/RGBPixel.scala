@@ -2,6 +2,4 @@ package AsciiArtApp.models.pixel
 
 import java.awt.Color
 
-class RGBPixel(id: Long, value: Color) extends Pixel {
-  override def id: Long = id
-}
+class RGBPixel(value: Color) extends Pixel {}

@@ -2,7 +2,7 @@ package AsciiArtApp.models
 
 import AsciiArtApp.models.pixel.Pixel
 
-class PixelGrid[T <: Pixel](id: Long, pixels: Seq[Seq[T]]) extends Entity[Long] {
+class PixelGrid[T <: Pixel](pixels: Seq[Seq[T]]) {
   if (pixels.isEmpty)
     throw new IllegalArgumentException("")
 
@@ -14,6 +14,4 @@ class PixelGrid[T <: Pixel](id: Long, pixels: Seq[Seq[T]]) extends Entity[Long] 
 
   if (pixels.exists(e => e.length != width))
     throw new IllegalArgumentException("")
-
-  override def id: Long = id
 }

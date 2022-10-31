@@ -2,8 +2,7 @@ package AsciiArtApp.models
 
 import AsciiArtApp.models.pixel.Pixel
 
-class Image[T <: Pixel](id: Long, pixelGrid: PixelGrid[T]) extends Entity[Long] {
-  override def id: Long = id
+class Image[T <: Pixel](pixelGrid: PixelGrid[T]) {
 
   def height: Int = pixelGrid.height
 
