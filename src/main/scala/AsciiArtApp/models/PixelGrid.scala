@@ -14,4 +14,14 @@ class PixelGrid[T <: Pixel](pixels: Seq[Seq[T]]) {
 
   if (pixels.exists(e => e.length != width))
     throw new IllegalArgumentException("")
+
+  def transform[S <: Pixel](transformer: T => S): PixelGrid[S] = {
+    var newPixels: Seq[Seq[S]] = Seq.empty[Seq[S]]
+    for (pixelRow <- pixels; pixel <- pixelRow) {
+      var newPixelRow: Seq[S] = Seq.empty[S]
+      newPixelRow = newPixelRow.appended(transformer(pixel))
+      newPixels = newPixels.appended(newPixelRow)
+    }
+    new PixelGrid[S](newPixels)
+  }
 }
