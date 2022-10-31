@@ -27,4 +27,6 @@ class PixelGrid[T <: Pixel](pixels: Seq[Seq[T]]) {
 
     new PixelGrid[S](newPixels)
   }
+
+  def at(x: Int, y: Int): T = pixels(x)(y)
 }
