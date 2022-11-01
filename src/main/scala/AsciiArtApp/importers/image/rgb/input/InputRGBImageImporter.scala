@@ -8,6 +8,12 @@ import java.awt.Color
 import java.awt.image.BufferedImage
 
 trait InputRGBImageImporter extends RGBImageImporter {
+  /**
+   * Constructs pixel grid and image consisting of RGB pixels from the given buffered image
+   *
+   * @param image buffered image
+   * @return Created image
+   */
   protected def createImageFromBufferedImage(image: BufferedImage): Image[RGBPixel] = {
     var pixels: Seq[Seq[RGBPixel]] = Seq.empty[Seq[RGBPixel]]
 

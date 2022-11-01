@@ -3,7 +3,9 @@ package AsciiArtApp.models.pixel
 import java.awt.Color
 
 class RGBPixel(value: Color) extends Pixel {
-  val red: Int = value.getRed
-  val green: Int = value.getGreen
-  val blue: Int = value.getBlue
+  def red: Int = value.getRed
+
+  def green: Int = value.getGreen
+
+  def blue: Int = value.getBlue
 }
