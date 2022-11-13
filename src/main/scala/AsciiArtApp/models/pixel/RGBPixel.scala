@@ -2,7 +2,7 @@ package AsciiArtApp.models.pixel
 
 import java.awt.Color
 
-class RGBPixel(value: Color) extends Pixel {
+case class RGBPixel(value: Color) extends Pixel {
   def red: Int = value.getRed
 
   def green: Int = value.getGreen

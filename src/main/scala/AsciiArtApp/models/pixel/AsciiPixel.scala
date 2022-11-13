@@ -1,3 +1,3 @@
 package AsciiArtApp.models.pixel
 
-class AsciiPixel(val value: Char) extends Pixel {}
+case class AsciiPixel(value: Char) extends Pixel {}

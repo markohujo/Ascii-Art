@@ -4,17 +4,17 @@ import AsciiArtApp.models.pixel.Pixel
 
 class PixelGrid[T <: Pixel](pixels: Seq[Seq[T]]) {
   if (pixels.isEmpty)
-    throw new IllegalArgumentException("")
+    throw new IllegalArgumentException("Pixel grid is empty")
 
   if (pixels.exists(e => e.isEmpty))
-    throw new IllegalArgumentException("")
+    throw new IllegalArgumentException("Pixel grid row is empty")
 
   def height: Int = pixels.length
 
   def width: Int = pixels.head.length
 
   if (pixels.exists(e => e.length != width))
-    throw new IllegalArgumentException("")
+    throw new IllegalArgumentException("Invalid pixel grid row size")
 
   /**
    * Applies the given function to each pixel of this pixel grid

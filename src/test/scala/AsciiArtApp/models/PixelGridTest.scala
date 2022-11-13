@@ -1,11 +1,13 @@
 package AsciiArtApp.models
 
-import AsciiArtApp.models.pixel.{Pixel, RGBPixel}
+import AsciiArtApp.models.pixel.RGBPixel
 import org.scalatest.FunSuite
 
 import java.awt.Color
 
 class PixelGridTest extends FunSuite {
+
+  val pixelGrid: PixelGrid[RGBPixel] = createValidPixelGrid()
 
   test("empty pixels") {
     val pixels = Seq.empty[Seq[RGBPixel]]
@@ -16,9 +18,9 @@ class PixelGridTest extends FunSuite {
 
   test("invalid pixels - empty row") {
     val pixels = Seq(
-      Seq(new RGBPixel(Color.BLACK), new RGBPixel(Color.GREEN)),
+      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN)),
       Seq.empty,
-      Seq(new RGBPixel(Color.BLACK), new RGBPixel(Color.GREEN))
+      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN))
     )
     assertThrows[IllegalArgumentException] {
       new PixelGrid[RGBPixel](pixels)
@@ -27,9 +29,9 @@ class PixelGridTest extends FunSuite {
 
   test("invalid pixels - invalid size") {
     val pixels = Seq(
-      Seq(new RGBPixel(Color.BLACK), new RGBPixel(Color.GREEN), new RGBPixel(Color.GREEN)),
-      Seq(new RGBPixel(Color.BLACK), new RGBPixel(Color.GREEN)),
-      Seq(new RGBPixel(Color.BLACK), new RGBPixel(Color.GREEN))
+      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN), new RGBPixel(Color.GREEN)),
+      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN)),
+      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN))
     )
     assertThrows[IllegalArgumentException] {
       new PixelGrid[RGBPixel](pixels)
@@ -37,13 +39,11 @@ class PixelGridTest extends FunSuite {
   }
 
   test("test height and width") {
-    val pixelGrid = createValidPixelGrid()
     assert(pixelGrid.height == 3)
     assert(pixelGrid.width == 2)
   }
 
   test("test transform") {
-    val pixelGrid = createValidPixelGrid()
     assert(pixelGrid.height == 3)
     assert(pixelGrid.width == 2)
 
@@ -60,15 +60,40 @@ class PixelGridTest extends FunSuite {
     }
   }
 
+  test("test at - invalid indices") {
+    assert(pixelGrid.height == 3)
+    assert(pixelGrid.width == 2)
+    assertThrows[IndexOutOfBoundsException] {
+      pixelGrid.at(-1, 0)
+    }
+    assertThrows[IndexOutOfBoundsException] {
+      pixelGrid.at(0, -1)
+    }
+    assertThrows[IndexOutOfBoundsException] {
+      pixelGrid.at(4, 0)
+    }
+    assertThrows[IndexOutOfBoundsException] {
+      pixelGrid.at(0, 3)
+    }
+    assertThrows[IndexOutOfBoundsException] {
+      pixelGrid.at(100, 100)
+    }
+    assertThrows[IndexOutOfBoundsException] {
+      pixelGrid.at(-100, -100)
+    }
+  }
+
+  test("test at") {
+    assert(pixelGrid.at(0, 0).equals(RGBPixel(Color.BLACK)))
+    assert(pixelGrid.at(1, 1).equals(RGBPixel(Color.GREEN)))
+  }
+
   private def createValidPixelGrid(): PixelGrid[RGBPixel] = {
     val pixels = Seq(
-      Seq(new RGBPixel(Color.BLACK), new RGBPixel(Color.GREEN)),
-      Seq(new RGBPixel(Color.BLACK), new RGBPixel(Color.GREEN)),
-      Seq(new RGBPixel(Color.BLACK), new RGBPixel(Color.GREEN))
+      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN)),
+      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN)),
+      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN))
     )
     new PixelGrid[RGBPixel](pixels)
   }
-
-  // TODO add more
-
 }
