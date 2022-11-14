@@ -1,5 +1,9 @@
 package AsciiArtApp
 
+import AsciiArtApp.ui.console.ConsoleController
+
+
 object Main extends App {
-  println("Hello there")
+  val consoleController = new ConsoleController
+  consoleController.processUserInput(args)
 }
