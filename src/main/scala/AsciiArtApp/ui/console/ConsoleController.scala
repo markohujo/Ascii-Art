@@ -17,22 +17,14 @@ class ConsoleController extends Controller[Array[String]] {
 
     // TODO throw if unsupported image extension
 
-    sortArguments(parseInput(input)).foreach(execute)
+    parseInput(input).foreach(prepareForExecution)
   }
 
   private def parseInput(input: Array[String]): Seq[String] = {
     ???
   }
 
-  private def sortArguments(arguments: Seq[String]): Seq[String] = {
+  private def prepareForExecution(argument: String): Unit = {
     ???
   }
-
-  private def execute(argument: String): Unit = {
-    ???
-
-    // TODO arguments could be case classes ???
-    // TODO pattern matching ???
-  }
-
 }
