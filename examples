@@ -4,3 +4,8 @@ run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_20
 run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-b.txt" --output-console --brightness +10
 run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-b-.txt" --output-console --brightness -20
 run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --invert --output-file "result-ii.txt" --output-console --invert
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-r90.txt" --output-console --invert --rotate +90
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-r-270.txt" --output-console --invert --rotate -270
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-r810.txt" --output-console --invert --rotate 810
+
+

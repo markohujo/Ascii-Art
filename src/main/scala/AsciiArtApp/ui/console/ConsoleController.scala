@@ -2,7 +2,7 @@ package AsciiArtApp.ui.console
 
 import AsciiArtApp.Executor
 import AsciiArtApp.exporters.text.stream.{ConsoleTextExporter, FileTextExporter}
-import AsciiArtApp.filters.image.ascii.{RotateImageFilter, ScaleImageFilter}
+import AsciiArtApp.filters.image.ascii.RotateImageFilter
 import AsciiArtApp.filters.image.grayscale.{BrightnessImageFilter, InvertImageFilter}
 import AsciiArtApp.importers.image.rgb.input.{FileInputRGBImageImporter, URLInputRGBImageImporter}
 import AsciiArtApp.importers.image.rgb.random.RandomRGBImageImporter
@@ -63,7 +63,6 @@ class ConsoleController(executor: Executor) extends Controller[Array[String]] {
       case brightnessPattern(value) => executor.addGrayscaleFilter(new BrightnessImageFilter(value.toInt))
       case invertPattern() => executor.addGrayscaleFilter(new InvertImageFilter)
       case rotatePattern(value) => executor.addAsciiFilter(new RotateImageFilter(value.toInt))
-      case scalePattern(value) => executor.addAsciiFilter(new ScaleImageFilter(value.toDouble))
       case outputConsolePattern() => executor.addExporter(new ConsoleTextExporter)
       case outputFilePattern(path) => executor.addExporter(new FileTextExporter(path))
       case _ => throw new Exception("Invalid arguments")
