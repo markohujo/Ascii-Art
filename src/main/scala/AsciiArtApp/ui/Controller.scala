@@ -6,7 +6,5 @@ package AsciiArtApp.ui
  * @tparam T type of input
  */
 trait Controller[T] {
-
   def processUserInput(input: T): Unit
-
 }

@@ -10,7 +10,7 @@ import AsciiArtApp.ui.Controller
 
 import scala.util.matching.Regex
 
-class ConsoleController extends Controller[Array[String]] {
+class ConsoleController(executor: Executor) extends Controller[Array[String]] {
 
   private val randomImportPattern: Regex = "^--image-random$".r
   private val urlImportPattern: Regex = "^--image-url\\s+(.*)$".r
@@ -32,7 +32,9 @@ class ConsoleController extends Controller[Array[String]] {
     if (input.count(_.startsWith("--image")) > 1)
       throw new IllegalArgumentException("More than 1 --image* argument specified.")
 
-    parseInput(input).foreach(prepareForExecution)
+    parseInput(input).foreach(process)
+
+    executor.run()
   }
 
   private def parseInput(input: Array[String]): Seq[String] = {
@@ -53,17 +55,18 @@ class ConsoleController extends Controller[Array[String]] {
     result.appended(argument.get)
   }
 
-  private def prepareForExecution(argument: String): Unit = {
+  private def process(argument: String): Unit = {
     argument match {
-      case randomImportPattern() => Executor.setImporter(new RandomRGBImageImporter)
-      case urlImportPattern(path) => Executor.setImporter(new URLInputRGBImageImporter(path))
-      case fileImportPattern(path) => Executor.setImporter(new FileInputRGBImageImporter(path))
-      case brightnessPattern(value) => Executor.addGrayscaleFilter(new BrightnessImageFilter(value.toInt))
-      case invertPattern() => Executor.addGrayscaleFilter(new InvertImageFilter)
-      case rotatePattern(value) => Executor.addAsciiFilter(new RotateImageFilter(value.toInt))
-      case scalePattern(value) => Executor.addAsciiFilter(new ScaleImageFilter(value.toDouble))
-      case outputConsolePattern() => Executor.addExporter(new ConsoleTextExporter)
-      case outputFilePattern(path) => Executor.addExporter(new FileTextExporter(path))
+      case randomImportPattern() => executor.setImporter(new RandomRGBImageImporter)
+      case urlImportPattern(path) => executor.setImporter(new URLInputRGBImageImporter(path))
+      case fileImportPattern(path) => executor.setImporter(new FileInputRGBImageImporter(path))
+      case brightnessPattern(value) => executor.addGrayscaleFilter(new BrightnessImageFilter(value.toInt))
+      case invertPattern() => executor.addGrayscaleFilter(new InvertImageFilter)
+      case rotatePattern(value) => executor.addAsciiFilter(new RotateImageFilter(value.toInt))
+      case scalePattern(value) => executor.addAsciiFilter(new ScaleImageFilter(value.toDouble))
+      case outputConsolePattern() => executor.addExporter(new ConsoleTextExporter)
+      case outputFilePattern(path) => executor.addExporter(new FileTextExporter(path))
+      case _ => throw new Exception("Invalid arguments")
     }
   }
 }

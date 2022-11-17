@@ -7,7 +7,7 @@ import AsciiArtApp.filters.image.ascii.AsciiImageFilter
 import AsciiArtApp.filters.image.grayscale.GrayscaleImageFilter
 import AsciiArtApp.importers.image.rgb.RGBImageImporter
 
-object Executor {
+class Executor {
 
   private var importer: RGBImageImporter = _
   private var grayscaleFilters: Seq[GrayscaleImageFilter] = Seq.empty
