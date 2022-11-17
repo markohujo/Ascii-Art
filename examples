@@ -1,0 +1,6 @@
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result.txt" --output-console
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-i.txt" --output-console --invert
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-ib.txt" --output-console --invert --brightness +10
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-b.txt" --output-console --brightness +10
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-b-.txt" --output-console --brightness -20
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --invert --output-file "result-ii.txt" --output-console --invert

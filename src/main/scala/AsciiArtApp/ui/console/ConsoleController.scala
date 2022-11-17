@@ -8,7 +8,19 @@ import AsciiArtApp.importers.image.rgb.input.{FileInputRGBImageImporter, URLInpu
 import AsciiArtApp.importers.image.rgb.random.RandomRGBImageImporter
 import AsciiArtApp.ui.Controller
 
+import scala.util.matching.Regex
+
 class ConsoleController extends Controller[Array[String]] {
+
+  private val randomImportPattern: Regex = "^--image-random$".r
+  private val urlImportPattern: Regex = "^--image-url\\s+(.*)$".r
+  private val fileImportPattern: Regex = "^--image\\s+(.*)$".r
+  private val brightnessPattern: Regex = "^--brightness\\s+(.*)$".r
+  private val invertPattern: Regex = "^--invert$".r
+  private val rotatePattern: Regex = "^--rotate\\s+(.*)$".r
+  private val scalePattern: Regex = "^--scale\\s+(.*)$".r
+  private val outputConsolePattern: Regex = "^--output-console$".r
+  private val outputFilePattern: Regex = "^--output-file\\s+(.*)$".r
 
   override def processUserInput(input: Array[String]): Unit = {
     if (input.isEmpty)
@@ -42,37 +54,16 @@ class ConsoleController extends Controller[Array[String]] {
   }
 
   private def prepareForExecution(argument: String): Unit = {
-    println(argument)
-    val argumentSplit = argument.split(" ")
-    var argumentValue: String = null
-    if (argumentSplit.length == 2)
-      argumentValue = argumentSplit(1)
-
-    if (argument.startsWith("--image-random"))
-      Executor.setImporter(new RandomRGBImageImporter)
-
-    else if (argument.startsWith("--image-url"))
-      Executor.setImporter(new URLInputRGBImageImporter(argumentValue))
-
-    else if (argument.startsWith("--image"))
-      Executor.setImporter(new FileInputRGBImageImporter(argumentValue))
-
-    else if (argument.startsWith("--brightness"))
-      Executor.addGrayscaleFilter(new BrightnessImageFilter(argumentValue.toInt))
-
-    else if (argument.startsWith("--invert"))
-      Executor.addGrayscaleFilter(new InvertImageFilter)
-
-    else if (argument.startsWith("--rotate"))
-      Executor.addAsciiFilter(new RotateImageFilter(argumentValue.toInt))
-
-    else if (argument.startsWith("--scale"))
-      Executor.addAsciiFilter(new ScaleImageFilter(argumentValue.toDouble))
-
-    else if (argument.startsWith("--output-console"))
-      Executor.addExporter(new ConsoleTextExporter)
-
-    else if (argument.startsWith("--output-file"))
-      Executor.addExporter(new FileTextExporter(argumentValue))
+    argument match {
+      case randomImportPattern() => Executor.setImporter(new RandomRGBImageImporter)
+      case urlImportPattern(path) => Executor.setImporter(new URLInputRGBImageImporter(path))
+      case fileImportPattern(path) => Executor.setImporter(new FileInputRGBImageImporter(path))
+      case brightnessPattern(value) => Executor.addGrayscaleFilter(new BrightnessImageFilter(value.toInt))
+      case invertPattern() => Executor.addGrayscaleFilter(new InvertImageFilter)
+      case rotatePattern(value) => Executor.addAsciiFilter(new RotateImageFilter(value.toInt))
+      case scalePattern(value) => Executor.addAsciiFilter(new ScaleImageFilter(value.toDouble))
+      case outputConsolePattern() => Executor.addExporter(new ConsoleTextExporter)
+      case outputFilePattern(path) => Executor.addExporter(new FileTextExporter(path))
+    }
   }
 }
