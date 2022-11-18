@@ -10,6 +10,12 @@ import app.ui.Controller
 
 import scala.util.matching.Regex
 
+/**
+ * Handles user input from the command line
+ *
+ * @param input  - sequence of command line arguments
+ * @param facade - image facade for business logic
+ */
 class ConsoleController(input: Seq[String], facade: ImageFacade) extends Controller {
 
   private val randomImportPattern: Regex = "^--image-random$".r
@@ -21,15 +27,22 @@ class ConsoleController(input: Seq[String], facade: ImageFacade) extends Control
   private val outputConsolePattern: Regex = "^--output-console$".r
   private val outputFilePattern: Regex = "^--output-file\\s+(.*)$".r
 
+  /**
+   * TODO
+   *
+   * @throws IllegalArgumentException if no command line arguments were specified
+   * @throws IllegalArgumentException if no --image* command line argument was specified
+   * @throws IllegalArgumentException if more than 1 --image* command line argument was specified
+   */
   override def processUserInput(): Unit = {
     if (input.isEmpty)
-      throw new IllegalArgumentException("No arguments were given by the user.")
+      throw new IllegalArgumentException("No arguments were specified.")
 
     if (input.count(_.startsWith("--image")) == 0)
-      throw new IllegalArgumentException("No --image argument specified.")
+      throw new IllegalArgumentException("No --image* argument was specified.")
 
     if (input.count(_.startsWith("--image")) > 1)
-      throw new IllegalArgumentException("More than 1 --image* argument specified.")
+      throw new IllegalArgumentException("More than 1 --image* argument was specified.")
 
     parseInput().foreach(processArgument)
     facade.translateImage()
@@ -37,6 +50,7 @@ class ConsoleController(input: Seq[String], facade: ImageFacade) extends Control
 
   /**
    * Parses user input from the command line to a sequence of arguments
+   *
    * @return Sequence of arguments
    */
   private def parseInput(): Seq[String] = {
@@ -59,7 +73,9 @@ class ConsoleController(input: Seq[String], facade: ImageFacade) extends Control
 
   /**
    * Processes each command line argument and calls corresponding facade method
+   *
    * @param argument - argument to process
+   * @throws IllegalArgumentException if invalid arguments were specified
    */
   private def processArgument(argument: String): Unit = {
     argument match {
