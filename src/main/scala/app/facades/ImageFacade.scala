@@ -28,32 +28,40 @@ class ImageFacade {
    */
   def loadImage(importer: RGBImageImporter): Unit = image = importer.load
 
+  def addGrayscaleFilter(filter: GrayscaleImageFilter): Unit = grayscaleFilters = grayscaleFilters.appended(filter)
+
+  def addAsciiFilter(filter: AsciiImageFilter): Unit = asciiFilters = asciiFilters.appended(filter)
+
+  def addExporter(exporter: StreamTextExporter): Unit = exporters = exporters.appended(exporter)
+
+  /**
+   * Translates image by converting it from rgb to ascii, applying filters and exporting it
+   */
+  def translateImage(): Unit = {
+    applyFilters()
+    exportImage()
+  }
+
   /**
    * Converts from RGB image to grayscale image
    * Applies grayscale filter
    * Converts from grayscale image to ascii image
    * Applies ascii filters
    */
-  def applyFilters(): Unit = {
+  private def applyFilters(): Unit = {
     applyGrayscaleFilters()
     applyAsciiFilters()
   }
 
   /**
-   * Exports the image to all added save target
+   * Exports the image to all added save targets
    */
-  def exportImage(): Unit = {
+  private def exportImage(): Unit = {
     exporters.foreach(exporter => {
       exporter.save(asciiToTextConverter.convert(asciiImage))
       exporter.close()
     })
   }
-
-  def addGrayscaleFilter(filter: GrayscaleImageFilter): Unit = grayscaleFilters = grayscaleFilters.appended(filter)
-
-  def addAsciiFilter(filter: AsciiImageFilter): Unit = asciiFilters = asciiFilters.appended(filter)
-
-  def addExporter(exporter: StreamTextExporter): Unit = exporters = exporters.appended(exporter)
 
   private def applyGrayscaleFilters(): Unit = {
     grayscaleImage = image.transform(RGBToGrayscaleConverter.convert)

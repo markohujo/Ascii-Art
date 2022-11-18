@@ -32,8 +32,7 @@ class ConsoleController(input: Seq[String], facade: ImageFacade) extends Control
       throw new IllegalArgumentException("More than 1 --image* argument specified.")
 
     parseInput().foreach(processArgument)
-    facade.applyFilters()
-    facade.exportImage()
+    facade.translateImage()
   }
 
   /**
