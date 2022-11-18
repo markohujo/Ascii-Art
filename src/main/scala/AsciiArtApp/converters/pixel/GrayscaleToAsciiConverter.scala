@@ -8,6 +8,6 @@ class GrayscaleToAsciiConverter extends PixelConverter[GrayscalePixel, AsciiPixe
 
   override def convert(item: GrayscalePixel): AsciiPixel = {
     val index: Int = ((chars.length - 1) * item.value / 255).toInt
-    new AsciiPixel(chars.charAt(index))
+    AsciiPixel(chars.charAt(index))
   }
 }

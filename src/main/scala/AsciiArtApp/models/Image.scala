@@ -12,7 +12,7 @@ class Image[T <: Pixel](pixelGrid: PixelGrid[T]) {
    *
    * @param transformer function to be applied
    * @tparam S subclass of Pixel that the new image will consist of
-   * @return Transformed image
+   * @return Transformed image with pixels of type S
    */
   def transform[S <: Pixel](transformer: T => S): Image[S] = {
     new Image[S](pixelGrid.transform(transformer))

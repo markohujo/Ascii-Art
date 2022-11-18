@@ -18,7 +18,6 @@ class ConsoleController(executor: Executor) extends Controller[Array[String]] {
   private val brightnessPattern: Regex = "^--brightness\\s+(.*)$".r
   private val invertPattern: Regex = "^--invert$".r
   private val rotatePattern: Regex = "^--rotate\\s+(.*)$".r
-  private val scalePattern: Regex = "^--scale\\s+(.*)$".r
   private val outputConsolePattern: Regex = "^--output-console$".r
   private val outputFilePattern: Regex = "^--output-file\\s+(.*)$".r
 
@@ -65,7 +64,7 @@ class ConsoleController(executor: Executor) extends Controller[Array[String]] {
       case rotatePattern(value) => executor.addAsciiFilter(new RotateImageFilter(value.toInt))
       case outputConsolePattern() => executor.addExporter(new ConsoleTextExporter)
       case outputFilePattern(path) => executor.addExporter(new FileTextExporter(path))
-      case _ => throw new Exception("Invalid arguments")
+      case _ => throw new IllegalArgumentException("Invalid arguments")
     }
   }
 }
