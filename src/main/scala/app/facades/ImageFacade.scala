@@ -42,7 +42,12 @@ class ImageFacade {
   /**
    * Exports the image to all added save target
    */
-  def exportImage(): Unit = exporters.foreach(exporter => exporter.save(asciiToTextConverter.convert(asciiImage)))
+  def exportImage(): Unit = {
+    exporters.foreach(exporter => {
+      exporter.save(asciiToTextConverter.convert(asciiImage))
+      exporter.close()
+    })
+  }
 
   def addGrayscaleFilter(filter: GrayscaleImageFilter): Unit = grayscaleFilters = grayscaleFilters.appended(filter)
 
