@@ -10,7 +10,7 @@ class RotateImageFilter(value: Int) extends AsciiImageFilter {
   if (value % 90 != 0)
     throw new IllegalArgumentException("Unsupported rotation value. Only rotations dividable by 90 degrees are available.")
 
-  override def filter(item: Image[AsciiPixel]): Image[AsciiPixel] = {
+  override def apply(item: Image[AsciiPixel]): Image[AsciiPixel] = {
     value % 360 match {
       case 0 => item
       case 90 | -270 => rotate(item)

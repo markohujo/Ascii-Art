@@ -1,5 +1,5 @@
 package app.filters
 
 trait Filter[T] {
-  def filter(item: T): T
+  def apply(item: T): T
 }

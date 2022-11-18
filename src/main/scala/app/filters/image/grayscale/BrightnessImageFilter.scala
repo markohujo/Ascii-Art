@@ -3,7 +3,7 @@ import app.models.Image
 import app.models.pixel.GrayscalePixel
 
 class BrightnessImageFilter(value: Int) extends GrayscaleImageFilter {
-  override def filter(item: Image[GrayscalePixel]): Image[GrayscalePixel] = {
+  override def apply(item: Image[GrayscalePixel]): Image[GrayscalePixel] = {
     item.transform(pixel => {
       var updatedValue = pixel.value + value
       if (updatedValue > 255)

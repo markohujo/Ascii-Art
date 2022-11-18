@@ -5,5 +5,5 @@ trait Exporter[T] {
    * Exports the given item
    * @param item item to export
    */
-  def export(item: T): Unit
+  def save(item: T): Unit
 }
