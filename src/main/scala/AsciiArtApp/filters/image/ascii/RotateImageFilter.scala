@@ -14,15 +14,16 @@ class RotateImageFilter(value: Int) extends AsciiImageFilter {
     value % 360 match {
       case 0 => item
       case 90 | -270 => rotate(item)
-      case _ => ???
+      case 180 | -180 => rotate(rotate(item))
+      case 270 | -90 => rotate(rotate(rotate(item)))
     }
   }
 
   private def rotate(item: Image[AsciiPixel]): Image[AsciiPixel] = {
     val result = new ArrayBuffer[ArrayBuffer[AsciiPixel]](item.width)
-    for (i <- 0 until item.width) {
+    for (_ <- 0 until item.width) {
       val row = new ArrayBuffer[AsciiPixel](item.height)
-      for (j <- 0 until item.height)
+      for (_ <- 0 until item.height)
         row.addOne(null)
       result.addOne(row)
     }
