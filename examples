@@ -1,11 +1,17 @@
-run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result.txt" --output-console
-run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-i.txt" --output-console --invert
-run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-ib.txt" --output-console --invert --brightness +10
-run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-b.txt" --output-console --brightness +10
-run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-b-.txt" --output-console --brightness -20
-run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --invert --output-file "result-ii.txt" --output-console --invert
-run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-r90.txt" --output-console --invert --rotate +90
-run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-r-270.txt" --output-console --invert --rotate -270
-run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "result-r810.txt" --output-console --invert --rotate 810
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "outputs/result.txt" --output-console
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "outputs/result-i.txt" --output-console --invert
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "outputs/result-ib.txt" --output-console --invert --brightness +10
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "outputs/result-b.txt" --output-console --brightness +10
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "outputs/result-b-.txt" --output-console --brightness -20
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --invert --output-file "outputs/result-ii.txt" --output-console --invert
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "outputs/result-r90.txt" --output-console --invert --rotate +90
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "outputs/result-r-270.txt" --output-console --invert --rotate -270
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "outputs/result-r810.txt" --output-console --invert --rotate 810
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "outputs/result-r-540.txt" --output-console --invert --rotate -540
+run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png" --output-file "outputs/result-r-90.txt" --output-console --invert --rotate -90
+run --image-url "https://beerena.com/ieNews/media/35-homer-2.jpg" --output-file "outputs/1.txt" --output-console --invert --brightness 20
+run --image-url "https://mystickermania.com/cdn/stickers/7/1829-512x512.png" --output-file "outputs/2.txt" --output-console --invert --brightness 10
+run --image-url "https://c4.wallpaperflare.com/wallpaper/391/310/480/the-simpsons-beer-look-pose-wallpaper-preview.jpg" --output-file "outputs/3.txt" --output-console --invert --brightness 30
+
 
 
