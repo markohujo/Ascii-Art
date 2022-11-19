@@ -1,8 +1,6 @@
-package utils
+package utils.correctors
 
-import utils.correctors.Corrector
-
-object PixelValueCorrector extends Corrector[Int] {
+object PixelValueCorrector extends IntCorrector {
   /**
    * Checks if pixel value is in range between 0 and 255 (both inclusive)
    *
