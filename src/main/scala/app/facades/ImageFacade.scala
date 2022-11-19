@@ -4,7 +4,7 @@ import app.models.Image
 import app.models.pixel.{AsciiPixel, GrayscalePixel, RGBPixel}
 import converters.imageToText.AsciiImageToTextConverter
 import converters.pixel.{GrayscaleToAsciiConverter, RGBToGrayscaleConverter}
-import exporters.text.stream.AbstractStreamTextExporter
+import exporters.text.stream.StreamTextExporter
 import filters.image.ascii.AsciiImageFilter
 import filters.image.grayscale.GrayscaleImageFilter
 import importers.image.rgb.RGBImageImporter
@@ -19,7 +19,7 @@ class ImageFacade {
   private var asciiImage: Image[AsciiPixel] = _
   private var grayscaleFilters: Seq[GrayscaleImageFilter] = Seq.empty
   private var asciiFilters: Seq[AsciiImageFilter] = Seq.empty
-  private var exporters: Seq[AbstractStreamTextExporter] = Seq.empty
+  private var exporters: Seq[StreamTextExporter] = Seq.empty
 
   /**
    * Loads an image using the given image importer
@@ -32,7 +32,7 @@ class ImageFacade {
 
   def addAsciiFilter(filter: AsciiImageFilter): Unit = asciiFilters = asciiFilters.appended(filter)
 
-  def addExporter(exporter: AbstractStreamTextExporter): Unit = exporters = exporters.appended(exporter)
+  def addExporter(exporter: StreamTextExporter): Unit = exporters = exporters.appended(exporter)
 
   /**
    * Translates image by converting it from rgb to ascii, applying filters and exporting it

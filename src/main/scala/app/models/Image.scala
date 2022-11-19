@@ -2,7 +2,7 @@ package app.models
 
 import app.models.pixel.Pixel
 
-class Image[T <: Pixel](pixelGrid: PixelGrid[T]) {
+case class Image[T <: Pixel](pixelGrid: PixelGrid[T]) {
   def height: Int = pixelGrid.height
 
   def width: Int = pixelGrid.width

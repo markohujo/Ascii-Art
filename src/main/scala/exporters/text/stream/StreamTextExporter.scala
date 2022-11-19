@@ -4,7 +4,7 @@ import exporters.text.TextExporter
 
 import java.io.OutputStream
 
-abstract class AbstractStreamTextExporter(stream: OutputStream) extends TextExporter {
+class StreamTextExporter(stream: OutputStream) extends TextExporter {
   private var closed: Boolean = false
 
   override def save(item: String): Unit = exportToStream(item)

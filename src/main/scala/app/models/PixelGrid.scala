@@ -2,7 +2,7 @@ package app.models
 
 import app.models.pixel.Pixel
 
-class PixelGrid[T <: Pixel](pixels: Seq[Seq[T]]) {
+case class PixelGrid[T <: Pixel](pixels: Seq[Seq[T]]) {
   if (pixels.isEmpty)
     throw new IllegalArgumentException("Pixel grid is empty")
 

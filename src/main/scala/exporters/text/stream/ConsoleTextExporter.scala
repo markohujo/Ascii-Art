@@ -1,3 +1,3 @@
 package exporters.text.stream
 
-class ConsoleTextExporter extends AbstractStreamTextExporter(System.out) {}
+class ConsoleTextExporter extends StreamTextExporter(System.out) {}
