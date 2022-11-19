@@ -12,6 +12,6 @@ run --image-url "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_20
 run --image-url "https://beerena.com/ieNews/media/35-homer-2.jpg" --output-file "outputs/1.txt" --output-console --invert --brightness 20
 run --image-url "https://mystickermania.com/cdn/stickers/7/1829-512x512.png" --output-file "outputs/2.txt" --output-console --invert --brightness 10
 run --image-url "https://c4.wallpaperflare.com/wallpaper/391/310/480/the-simpsons-beer-look-pose-wallpaper-preview.jpg" --output-file "outputs/3.txt" --output-console --invert --brightness 30
-
+run --image-random --output-file "outputs/r.txt"
 
 
