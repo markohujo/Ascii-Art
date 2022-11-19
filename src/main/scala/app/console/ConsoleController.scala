@@ -15,7 +15,7 @@ import scala.util.matching.Regex
  * @param input       - sequence of command line arguments
  * @param imageFacade - image facade for business logic
  */
-class ConsoleController(input: Seq[String], imageFacade: ImageFacade) extends Controller {
+class ConsoleController(input: Array[String], imageFacade: ImageFacade) extends Controller {
 
   private val randomImportPattern: Regex = "^--image-random$".r
   private val urlImportPattern: Regex = "^--image-url\\s+(.*)$".r

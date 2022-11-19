@@ -68,10 +68,7 @@ class ImageFacade {
    */
   private def exportImage(): Unit = {
     val imageText = asciiToTextConverter.convert(asciiImage)
-    exporters.foreach(exporter => {
-      exporter.save(imageText)
-      exporter.close()
-    })
+    exporters.foreach(exporter => exporter.save(imageText))
   }
 
 }

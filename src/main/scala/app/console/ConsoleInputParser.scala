@@ -3,7 +3,7 @@ package app.console
 /**
  * @param args - command line arguments given by the user
  */
-class ConsoleInputParser(args: Seq[String]) {
+class ConsoleInputParser(args: Array[String]) {
 
   /**
    * Parses the given input (command line arguments) into a sequence of arguments of this app
