@@ -1,7 +1,7 @@
 package app.facades
 
 import app.converters.pixel.{GrayscaleToAsciiConverter, RGBToGrayscaleConverter}
-import app.converters.toText.AsciiImageToTextConverter
+import app.converters.text.imageToText.AsciiImageToTextConverter
 import app.exporters.text.stream.StreamTextExporter
 import app.filters.image.ascii.AsciiImageFilter
 import app.filters.image.grayscale.GrayscaleImageFilter
@@ -57,8 +57,9 @@ class ImageFacade {
    * Exports the image to all added save targets
    */
   private def exportImage(): Unit = {
+    val imageText = asciiToTextConverter.convert(asciiImage)
     exporters.foreach(exporter => {
-      exporter.save(asciiToTextConverter.convert(asciiImage))
+      exporter.save(imageText)
       exporter.close()
     })
   }

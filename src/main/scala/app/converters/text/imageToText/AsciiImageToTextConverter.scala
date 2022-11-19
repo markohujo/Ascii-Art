@@ -1,11 +1,11 @@
-package app.converters.toText
+package app.converters.text.imageToText
 
 import app.models.Image
 import app.models.pixel.AsciiPixel
 
 import scala.collection.mutable
 
-class AsciiImageToTextConverter extends ToTextConverter[Image[AsciiPixel]] {
+class AsciiImageToTextConverter extends ImageToTextConverter[AsciiPixel] {
   private val builder = new mutable.StringBuilder
 
   override def convert(item: Image[AsciiPixel]): String = {
