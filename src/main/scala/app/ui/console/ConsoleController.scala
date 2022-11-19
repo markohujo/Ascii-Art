@@ -14,9 +14,9 @@ import scala.util.matching.Regex
  * Handles user input from the command line
  *
  * @param input  - sequence of command line arguments
- * @param facade - image facade for business logic
+ * @param imageFacade - image facade for business logic
  */
-class ConsoleController(input: Seq[String], facade: ImageFacade) extends Controller {
+class ConsoleController(input: Seq[String], imageFacade: ImageFacade) extends Controller {
 
   private val randomImportPattern: Regex = "^--image-random$".r
   private val urlImportPattern: Regex = "^--image-url\\s+(.*)$".r
@@ -44,31 +44,9 @@ class ConsoleController(input: Seq[String], facade: ImageFacade) extends Control
     if (input.count(_.startsWith("--image")) > 1)
       throw new IllegalArgumentException("More than 1 --image* argument was specified.")
 
-    parseInput().foreach(processArgument)
-    facade.translateImage()
-  }
+    new ConsoleInputParser(input).parse().foreach(processArgument)
 
-  /**
-   * Parses user input from the command line to a sequence of arguments
-   *
-   * @return Sequence of arguments
-   */
-  private def parseInput(): Seq[String] = {
-    var result = Seq.empty[String]
-    var argument: Option[String] = Option.empty
-
-    for (arg <- input) {
-      if (arg.startsWith("--")) {
-        if (argument.isDefined)
-          result = result.appended(argument.get)
-        argument = Option.apply(arg)
-      }
-      else {
-        argument = Option.apply(argument.get.appendedAll(" ").appendedAll(arg))
-      }
-    }
-
-    result.appended(argument.get)
+    imageFacade.translateImage()
   }
 
   /**
@@ -79,14 +57,14 @@ class ConsoleController(input: Seq[String], facade: ImageFacade) extends Control
    */
   private def processArgument(argument: String): Unit = {
     argument match {
-      case randomImportPattern() => facade.loadImage(new RandomRGBImageImporter)
-      case urlImportPattern(path) => facade.loadImage(new URLInputRGBImageImporter(path))
-      case fileImportPattern(path) => facade.loadImage(new FileInputRGBImageImporter(path))
-      case brightnessPattern(value) => facade.addGrayscaleFilter(new BrightnessImageFilter(value.toInt))
-      case invertPattern() => facade.addGrayscaleFilter(new InvertImageFilter)
-      case rotatePattern(value) => facade.addAsciiFilter(new RotateImageFilter(value.toInt))
-      case outputConsolePattern() => facade.addExporter(new ConsoleTextExporter)
-      case outputFilePattern(path) => facade.addExporter(new FileTextExporter(path))
+      case randomImportPattern() => imageFacade.loadImage(new RandomRGBImageImporter)
+      case urlImportPattern(path) => imageFacade.loadImage(new URLInputRGBImageImporter(path))
+      case fileImportPattern(path) => imageFacade.loadImage(new FileInputRGBImageImporter(path))
+      case brightnessPattern(value) => imageFacade.addGrayscaleFilter(new BrightnessImageFilter(value.toInt))
+      case invertPattern() => imageFacade.addGrayscaleFilter(new InvertImageFilter)
+      case rotatePattern(value) => imageFacade.addAsciiFilter(new RotateImageFilter(value.toInt))
+      case outputConsolePattern() => imageFacade.addExporter(new ConsoleTextExporter)
+      case outputFilePattern(path) => imageFacade.addExporter(new FileTextExporter(path))
       case _ => throw new IllegalArgumentException("Invalid arguments")
     }
   }
