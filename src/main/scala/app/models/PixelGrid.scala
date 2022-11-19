@@ -9,13 +9,6 @@ class PixelGrid[T <: Pixel](pixels: Seq[Seq[T]]) {
   if (pixels.exists(e => e.isEmpty))
     throw new IllegalArgumentException("Pixel grid row is empty")
 
-  def height: Int = pixels.length
-
-  def width: Int = pixels.head.length
-
-  if (pixels.exists(e => e.length != width))
-    throw new IllegalArgumentException("Invalid pixel grid row size")
-
   /**
    * Applies the given function to each pixel of this pixel grid
    *
@@ -51,4 +44,11 @@ class PixelGrid[T <: Pixel](pixels: Seq[Seq[T]]) {
 
     pixels(x)(y)
   }
+
+  if (pixels.exists(e => e.length != width))
+    throw new IllegalArgumentException("Invalid pixel grid row size")
+
+  def height: Int = pixels.length
+
+  def width: Int = pixels.head.length
 }
