@@ -17,6 +17,17 @@ import scala.util.matching.Regex
  */
 class ConsoleController(input: Array[String], imageFacade: ImageFacade) extends Controller {
 
+  if (input.isEmpty)
+    throw new IllegalArgumentException("No arguments were specified.")
+
+  if (input.count(_.startsWith("--image")) == 0)
+    throw new IllegalArgumentException("No --image* argument was specified.")
+
+  if (input.count(_.startsWith("--image")) > 1)
+    throw new IllegalArgumentException("More than 1 --image* argument was specified.")
+
+  private val parser = new ConsoleInputParser(input)
+
   private val randomImportPattern: Regex = "^--image-random$".r
   private val urlImportPattern: Regex = "^--image-url\\s+(.*)$".r
   private val fileImportPattern: Regex = "^--image\\s+(.*)$".r
@@ -34,17 +45,7 @@ class ConsoleController(input: Array[String], imageFacade: ImageFacade) extends 
    * @throws IllegalArgumentException if more than 1 --image* command line argument was specified
    */
   override def processUserInput(): Unit = {
-    if (input.isEmpty)
-      throw new IllegalArgumentException("No arguments were specified.")
-
-    if (input.count(_.startsWith("--image")) == 0)
-      throw new IllegalArgumentException("No --image* argument was specified.")
-
-    if (input.count(_.startsWith("--image")) > 1)
-      throw new IllegalArgumentException("More than 1 --image* argument was specified.")
-
-    new ConsoleInputParser(input).parse().foreach(processArgument)
-
+    parser.parse().foreach(processArgument)
     imageFacade.translateImage()
   }
 
