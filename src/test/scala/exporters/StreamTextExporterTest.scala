@@ -7,7 +7,7 @@ import java.io.ByteArrayOutputStream
 
 class StreamTextExporterTest extends FunSuite {
 
-  test("export") {
+  test("exporter test") {
     val stream = new ByteArrayOutputStream()
     val exporter = new StreamTextExporter(stream)
     val text = "Saved item"
@@ -15,7 +15,7 @@ class StreamTextExporterTest extends FunSuite {
     assert(stream.toString("UTF-8") == text)
   }
 
-  test("closed stream") {
+  test("exporter test - closed stream") {
     val stream = new ByteArrayOutputStream()
     val exporter = new StreamTextExporter(stream)
     exporter.close()

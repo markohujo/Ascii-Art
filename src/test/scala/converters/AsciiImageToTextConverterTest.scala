@@ -9,7 +9,7 @@ class AsciiImageToTextConverterTest extends FunSuite {
 
   private val converter = new AsciiImageToTextConverter
 
-  test("converter test 1") {
+  test("ascii to text converter test multiple rows") {
     val image = Image(PixelGrid(Seq(
       Seq(AsciiPixel('A'), AsciiPixel('B')),
       Seq(AsciiPixel('#'), AsciiPixel('$')),
@@ -18,7 +18,7 @@ class AsciiImageToTextConverterTest extends FunSuite {
     assert("AB\n#$\n!@\n" == converter.convert(image))
   }
 
-  test("converter test 2") {
+  test("ascii to text converter test one row") {
     val image = Image(PixelGrid(Seq(
       Seq(AsciiPixel('!'), AsciiPixel('@'), AsciiPixel('#'))
     )))

@@ -8,7 +8,7 @@ import javax.imageio.ImageIO
 
 class InputRGBImageImporterTest extends FunSuite {
 
-  test("createImageFromBufferedImage") {
+  test("test loading image") {
     val path = "examples/homer.jpg"
     val importer = new FileInputRGBImageImporter(path)
     val image = importer.load
@@ -21,7 +21,7 @@ class InputRGBImageImporterTest extends FunSuite {
     }
   }
 
-  test("invalid file extension") {
+  test("test loading image - invalid file extension") {
     assertThrows[IllegalArgumentException] {
       new FileInputRGBImageImporter("image.svg")
     }

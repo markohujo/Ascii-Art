@@ -14,7 +14,7 @@ class GrayscaleToAsciiConverterTest extends FunSuite {
 
   private val converter = new GrayscaleToAsciiConverter
 
-  test("converter test") {
+  test("grayscale to ascii converter test") {
     val convertedImage = image.transform(converter.convert)
     for (i <- 0 until convertedImage.height) {
       for (j <- 0 until convertedImage.width) {

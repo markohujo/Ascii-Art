@@ -3,7 +3,7 @@ package utils.correctors
 import org.scalatest.FunSuite
 
 class PixelValueCorrectorTest extends FunSuite {
-  test("test corrected") {
+  test("test pixel value corrector") {
     assert(PixelValueCorrector.corrected(255) == 255)
     assert(PixelValueCorrector.corrected(0) == 0)
     assert(PixelValueCorrector.corrected(100) == 100)

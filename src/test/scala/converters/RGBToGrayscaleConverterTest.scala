@@ -17,7 +17,7 @@ class RGBToGrayscaleConverterTest extends FunSuite {
 
   private val converter = new RGBToGrayscaleConverter
 
-  test("test converter") {
+  test("rgb to grayscale converter test") {
     val convertedImage = image.transform(converter.convert)
     for (i <- 0 until convertedImage.height) {
       for (j <- 0 until convertedImage.width) {
