@@ -21,7 +21,7 @@ trait InputRGBImageImporter extends RGBImageImporter {
       var pixelRow: Seq[RGBPixel] = Seq.empty[RGBPixel]
       for (j <- 0 until image.getWidth())
         pixelRow = pixelRow.appended(RGBPixel(new Color(image.getRGB(j, i))))
-      pixels = pixels.prepended(pixelRow)
+      pixels = pixels.appended(pixelRow)
     }
 
     new Image[RGBPixel](new PixelGrid[RGBPixel](pixels))

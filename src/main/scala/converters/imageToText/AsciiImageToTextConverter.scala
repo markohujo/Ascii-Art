@@ -14,9 +14,9 @@ class AsciiImageToTextConverter extends ImageToTextConverter[AsciiPixel] {
     builder.toString
   }
 
-  private def convertRow(rowIndex: Int, item: Image[AsciiPixel]): Unit = {
-    for (columnIndex <- 0 until item.width)
-      builder.addOne(item.pixelAt(item.height - 1 - rowIndex, columnIndex).value)
+  private def convertRow(rowIndex: Int, image: Image[AsciiPixel]): Unit = {
+    for (columnIndex <- 0 until image.width)
+      builder.addOne(image.pixelAt(rowIndex, columnIndex).value)
     builder.addOne('\n')
   }
 }
