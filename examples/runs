@@ -13,5 +13,5 @@ run --image-url "https://beerena.com/ieNews/media/35-homer-2.jpg" --output-file 
 run --image-url "https://mystickermania.com/cdn/stickers/7/1829-512x512.png" --output-file "outputs/2.txt" --output-console --invert --brightness 10
 run --image-url "https://c4.wallpaperflare.com/wallpaper/391/310/480/the-simpsons-beer-look-pose-wallpaper-preview.jpg" --output-file "outputs/3.txt" --output-console --invert --brightness 30
 run --image-random --output-file "outputs/r.txt"
-
+run --image "examples/homer.jpg" --rotate -360 --output-console --output-file "outputs/the_best.txt" --invert --brightness +30
 

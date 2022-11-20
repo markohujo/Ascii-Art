@@ -9,6 +9,7 @@ class AsciiImageToTextConverter extends ImageToTextConverter[AsciiPixel] {
   private val builder = new mutable.StringBuilder
 
   override def convert(item: Image[AsciiPixel]): String = {
+    builder.clear()
     for (rowIndex <- 0 until item.height)
       convertRow(rowIndex, item)
     builder.toString
