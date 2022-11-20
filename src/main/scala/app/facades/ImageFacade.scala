@@ -14,6 +14,7 @@ class ImageFacade {
   private val RGBToGrayscaleConverter = new RGBToGrayscaleConverter
   private val grayscaleToAsciiConverter = new GrayscaleToAsciiConverter
   private val asciiToTextConverter = new AsciiImageToTextConverter
+
   private var image: Image[RGBPixel] = _
   private var grayscaleImage: Image[GrayscalePixel] = _
   private var asciiImage: Image[AsciiPixel] = _
