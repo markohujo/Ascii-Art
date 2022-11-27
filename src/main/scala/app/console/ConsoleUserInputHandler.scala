@@ -13,16 +13,13 @@ import importers.image.rgb.random.RandomRGBImageImporter
  * @param input       sequence of command line arguments
  * @param imageFacade image facade for business logic
  */
-class ConsoleUserInputHandler(input: List[String], imageFacade: ImageFacade) extends UserInputHandler {
+class ConsoleUserInputHandler(private var input: List[String], imageFacade: ImageFacade) extends UserInputHandler {
 
   if (input.isEmpty)
     throw new IllegalArgumentException("No arguments were specified.")
 
-  if (input.count(_.startsWith("--image")) == 0)
-    throw new IllegalArgumentException("No --image* argument was specified.")
-
-  if (input.count(_.startsWith("--image")) > 1)
-    throw new IllegalArgumentException("More than 1 --image* argument was specified.")
+  if (input.count(_.startsWith("--image")) != 1)
+    throw new IllegalArgumentException("Exactly 1 --image* argument must be specified.")
 
   /**
    * TODO
@@ -43,34 +40,32 @@ class ConsoleUserInputHandler(input: List[String], imageFacade: ImageFacade) ext
    * @throws IllegalArgumentException if invalid arguments were specified
    */
   private def processArguments(): Unit = {
-    var inputIter: List[String] = input
-
-    while (inputIter.nonEmpty) {
-      inputIter match {
+    while (input.nonEmpty) {
+      input match {
         case "--image" :: path :: tail =>
           imageFacade.loadImage(new FileInputRGBImageImporter(path))
-          inputIter = tail
+          input = tail
         case "--image-url" :: path :: tail =>
           imageFacade.loadImage(new URLInputRGBImageImporter(path))
-          inputIter = tail
+          input = tail
         case "--image--random" :: tail =>
           imageFacade.loadImage(new RandomRGBImageImporter)
-          inputIter = tail
+          input = tail
         case "--brightness" :: value :: tail =>
           imageFacade.addGrayscaleFilter(new BrightnessImageFilter(value.toInt))
-          inputIter = tail
+          input = tail
         case "--invert" :: tail =>
           imageFacade.addGrayscaleFilter(new InvertImageFilter)
-          inputIter = tail
+          input = tail
         case "--rotate" :: value :: tail =>
           imageFacade.addAsciiFilter(new RotateImageFilter(value.toInt))
-          inputIter = tail
+          input = tail
         case "--output-console" :: tail =>
           imageFacade.addExporter(new ConsoleTextExporter)
-          inputIter = tail
+          input = tail
         case "--output-file" :: path :: tail =>
           imageFacade.addExporter(new FileTextExporter(path))
-          inputIter = tail
+          input = tail
         case _ => throw new IllegalArgumentException("Invalid argument")
       }
     }
