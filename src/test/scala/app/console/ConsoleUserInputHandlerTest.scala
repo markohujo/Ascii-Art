@@ -10,29 +10,29 @@ import org.mockito.Mockito.{times, verify}
 import org.mockito.MockitoSugar.mock
 import org.scalatest.FunSuite
 
-class ConsoleControllerTest extends FunSuite {
+class ConsoleUserInputHandlerTest extends FunSuite {
 
   test("empty args") {
     assertThrows[IllegalArgumentException] {
-      new ConsoleController(Array(), new ImageFacade)
+      new ConsoleUserInputHandler(List(), new ImageFacade)
     }
   }
 
   test("no --image argument") {
     assertThrows[IllegalArgumentException] {
-      new ConsoleController(Array("--input", "filepath.png", "--output-console", "--invert", "--rotate", "-90"), new ImageFacade)
+      new ConsoleUserInputHandler(List("--input", "filepath.png", "--output-console", "--invert", "--rotate", "-90"), new ImageFacade)
     }
   }
 
   test("too many --image argument") {
     assertThrows[IllegalArgumentException] {
-      new ConsoleController(Array("--image", "filepath.png", "--image-url", "google.com/image.png", "--output-console", "--invert", "--rotate", "-90"), new ImageFacade)
+      new ConsoleUserInputHandler(List("--image", "filepath.png", "--image-url", "google.com/image.png", "--output-console", "--invert", "--rotate", "-90"), new ImageFacade)
     }
   }
 
   test("verify translate image and load image call") {
     val facadeMock = mock[ImageFacade]
-    val controller = new ConsoleController(Array("--image", "filepath.png"), facadeMock)
+    val controller = new ConsoleUserInputHandler(List("--image", "filepath.png"), facadeMock)
 
     controller.processUserInput()
     verify(facadeMock).translateImage()
@@ -44,7 +44,7 @@ class ConsoleControllerTest extends FunSuite {
 
   test("verify export call") {
     val facadeMock = mock[ImageFacade]
-    val controller = new ConsoleController(Array("--image", "filepath.png", "--output-console"), facadeMock)
+    val controller = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console"), facadeMock)
 
     controller.processUserInput()
     verify(facadeMock).translateImage()
@@ -56,7 +56,7 @@ class ConsoleControllerTest extends FunSuite {
 
   test("verify 2 export calls") {
     val facadeMock = mock[ImageFacade]
-    val controller = new ConsoleController(Array("--image", "filepath.png", "--output-console", "--output-file", "outputs/output.txt"), facadeMock)
+    val controller = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console", "--output-file", "outputs/output.txt"), facadeMock)
 
     controller.processUserInput()
     verify(facadeMock).translateImage()
@@ -68,7 +68,7 @@ class ConsoleControllerTest extends FunSuite {
 
   test("verify 3 export calls") {
     val facadeMock = mock[ImageFacade]
-    val controller = new ConsoleController(Array("--image", "filepath.png", "--output-console", "--output-file", "outputs/output.txt", "--output-file", "outputs/another-output.txt"), facadeMock)
+    val controller = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console", "--output-file", "outputs/output.txt", "--output-file", "outputs/another-output.txt"), facadeMock)
 
     controller.processUserInput()
     verify(facadeMock).translateImage()
@@ -80,7 +80,7 @@ class ConsoleControllerTest extends FunSuite {
 
   test("verify filter calls") {
     val facadeMock = mock[ImageFacade]
-    val controller = new ConsoleController(Array("--image", "filepath.png", "--brightness", "+30", "--output-console", "--output-file", "outputs/output.txt", "--rotate", "-90", "--invert"), facadeMock)
+    val controller = new ConsoleUserInputHandler(List("--image", "filepath.png", "--brightness", "+30", "--output-console", "--output-file", "outputs/output.txt", "--rotate", "-90", "--invert"), facadeMock)
 
     controller.processUserInput()
     verify(facadeMock).translateImage()

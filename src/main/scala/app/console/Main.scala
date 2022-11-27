@@ -5,7 +5,7 @@ import app.facades.ImageFacade
 object Main extends App {
   try {
     val imageFacade = new ImageFacade
-    val controller = new ConsoleController(args, imageFacade)
+    val controller = new ConsoleUserInputHandler(args.toList, imageFacade)
     controller.processUserInput()
   } catch {
     case exception: IllegalArgumentException => println(exception.getMessage)

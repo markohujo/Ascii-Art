@@ -1,9 +1,9 @@
 package app.console
 
 /**
- * Controller class used for processing user input
+ * Handles user input
  */
-trait Controller {
+trait UserInputHandler {
 
   /**
    * TODO
