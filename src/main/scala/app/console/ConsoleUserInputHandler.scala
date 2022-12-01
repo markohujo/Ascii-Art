@@ -22,7 +22,7 @@ class ConsoleUserInputHandler(private var input: List[String], imageFacade: Imag
     throw new IllegalArgumentException("Exactly 1 --image* argument must be specified.")
 
   /**
-   * TODO
+   * Processes command line arguments and translates image
    *
    * @throws IllegalArgumentException if no command line arguments were specified
    * @throws IllegalArgumentException if no --image* command line argument was specified
@@ -34,8 +34,7 @@ class ConsoleUserInputHandler(private var input: List[String], imageFacade: Imag
   }
 
   /**
-   * TODO
-   * Processes arguments and calls corresponding facade method
+   * Processes command line arguments and calls corresponding facade method
    *
    * @throws IllegalArgumentException if invalid arguments were specified
    */
@@ -65,6 +64,12 @@ class ConsoleUserInputHandler(private var input: List[String], imageFacade: Imag
           input = tail
         case "--output-file" :: path :: tail =>
           imageFacade.addExporter(new FileTextExporter(path))
+          input = tail
+        case "--table" :: tableName :: tail =>
+          imageFacade.setPredefinedTable(tableName)
+          input = tail
+        case "--custom-table" :: characters :: tail =>
+          imageFacade.setTransformationTable(characters)
           input = tail
         case _ => throw new IllegalArgumentException("Invalid argument")
       }
