@@ -1,13 +1,13 @@
 package converters.pixel
+
 import app.models.pixel.{AsciiPixel, GrayscalePixel}
+import utils.Constants
 
 /**
  *
  * @param transformationTable characters used as linear transformation table
  */
-class LinearGrayscaleToAsciiConverter(
-  transformationTable: String =
-    "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. ")
+class LinearGrayscaleToAsciiConverter(transformationTable: String = Constants.DefaultTransformationTable)
     extends GrayscaleToAsciiConverter(transformationTable) {
 
   /**

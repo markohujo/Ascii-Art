@@ -12,6 +12,8 @@ import importers.image.rgb.random.RandomRGBImageImporter
  *
  * @param input       sequence of command line arguments
  * @param imageFacade image facade for business logic
+ *
+ * @throws IllegalArgumentException if invalid command line arguments are specified
  */
 class ConsoleUserInputHandler(private var input: List[String], imageFacade: ImageFacade) extends UserInputHandler {
 
@@ -20,6 +22,9 @@ class ConsoleUserInputHandler(private var input: List[String], imageFacade: Imag
 
   if (input.count(_.startsWith("--image")) != 1)
     throw new IllegalArgumentException("Exactly 1 --image* argument must be specified.")
+
+  if (input.count(_.endsWith("-table")) > 1)
+    throw new IllegalArgumentException("More than one transformation table was specified.")
 
   /**
    * Processes command line arguments and translates image
@@ -66,10 +71,10 @@ class ConsoleUserInputHandler(private var input: List[String], imageFacade: Imag
           imageFacade.addExporter(new FileTextExporter(path))
           input = tail
         case "--table" :: tableName :: tail =>
-          imageFacade.setPredefinedTable(tableName)
+          imageFacade.setPredefinedTransformationTable(tableName)
           input = tail
         case "--custom-table" :: characters :: tail =>
-          imageFacade.setTransformationTable(characters)
+          imageFacade.setCustomTransformationTable(characters)
           input = tail
         case _ => throw new IllegalArgumentException("Invalid argument")
       }

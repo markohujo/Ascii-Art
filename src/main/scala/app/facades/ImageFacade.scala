@@ -8,15 +8,13 @@ import exporters.text.stream.StreamTextExporter
 import filters.image.ascii.AsciiImageFilter
 import filters.image.grayscale.GrayscaleImageFilter
 import importers.image.rgb.RGBImageImporter
+import utils.Constants
 
 class ImageFacade {
 
   private val RGBToGrayscaleConverter = new RGBToGrayscaleConverter
+  private var grayscaleToAsciiConverter: GrayscaleToAsciiConverter = new LinearGrayscaleToAsciiConverter
   private val asciiToTextConverter = new AsciiImageToTextConverter
-
-  private val defaultTransformationTable =
-    "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
-  private var grayscaleToAsciiConverter: GrayscaleToAsciiConverter = _
 
   private var image: Image[RGBPixel] = _
   private var grayscaleImage: Image[GrayscalePixel] = _
@@ -41,23 +39,23 @@ class ImageFacade {
   def addExporter(exporter: StreamTextExporter): Unit =
     exporters = exporters.appended(exporter)
 
-  def setPredefinedTable(tableName: String): Unit = {
+  def setPredefinedTransformationTable(tableName: String): Unit = {
     tableName match {
       case "linear" => grayscaleToAsciiConverter = new LinearGrayscaleToAsciiConverter
       case "non-linear" | "nonlinear" => grayscaleToAsciiConverter = new NonLinearGrayscaleToAsciiConverter
+      case "simplified" | "linear-simplified" | "simple" | "linear-simple" =>
+        grayscaleToAsciiConverter = new LinearGrayscaleToAsciiConverter(Constants.DefaultSimplifiedTransformationTable)
       case _ => throw new IllegalArgumentException("Undefined transformation table name \"" + tableName + "\".")
     }
   }
 
-  def setTransformationTable(characters: String): Unit =
+  def setCustomTransformationTable(characters: String): Unit =
     grayscaleToAsciiConverter = new LinearGrayscaleToAsciiConverter(characters)
 
   /**
    * Translates image by converting it from rgb to ascii, applying filters and exporting it
    */
   def translateImage(): Unit = {
-    if (grayscaleToAsciiConverter == null)
-      grayscaleToAsciiConverter = new LinearGrayscaleToAsciiConverter
     applyFilters()
     exportImage()
   }

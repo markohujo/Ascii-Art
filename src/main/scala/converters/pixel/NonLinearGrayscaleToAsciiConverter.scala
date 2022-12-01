@@ -1,11 +1,12 @@
 package converters.pixel
 import app.models.pixel.{AsciiPixel, GrayscalePixel}
+import utils.Constants
 
 /**
  *
  * @param transformationTable characters used as non-linear transformation table
  */
-class NonLinearGrayscaleToAsciiConverter(transformationTable: String = "TODO")
+class NonLinearGrayscaleToAsciiConverter(transformationTable: String = Constants.DefaultNonLinearTransformationTable)
     extends GrayscaleToAsciiConverter(transformationTable) {
 
   /**
