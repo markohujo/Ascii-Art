@@ -30,6 +30,18 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     }
   }
 
+  test("too many transformation tables") {
+    assertThrows[IllegalArgumentException] {
+      new ConsoleUserInputHandler(List("--table", "linear", "--custom-table", " .:-=+*#%@", "--image", "filepath.png", "--output-console"), new ImageFacade)
+    }
+    assertThrows[IllegalArgumentException] {
+      new ConsoleUserInputHandler(List("--table", "linear", "--table", "nonlinear", "--image", "filepath.png", "--output-console"), new ImageFacade)
+    }
+    assertThrows[IllegalArgumentException] {
+      new ConsoleUserInputHandler(List("--custom-table", " @@@###   ***&&&   ---+++ ", "--custom-table", " .:-=+*#%@", "--image", "filepath.png", "--output-console"), new ImageFacade)
+    }
+  }
+
   test("verify translate image and load image call") {
     val facadeMock = mock[ImageFacade]
     val controller = new ConsoleUserInputHandler(List("--image", "filepath.png"), facadeMock)
@@ -90,4 +102,25 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     verify(facadeMock).addAsciiFilter(any[AsciiImageFilter])
   }
 
+  test("verify setPredefinedTable call") {
+    val facadeMock = mock[ImageFacade]
+    val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--table", "linear", "--output-console"), facadeMock)
+
+    inputHandler.processUserInput()
+    verify(facadeMock).translateImage()
+    verify(facadeMock).loadImage(any[RGBImageImporter])
+    verify(facadeMock).addExporter(any[StreamTextExporter])
+    verify(facadeMock).setPredefinedTransformationTable("linear")
+  }
+
+  test("verify setCustomTable call") {
+    val facadeMock = mock[ImageFacade]
+    val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--custom-table", " .:-=+*#%@", "--output-console"), facadeMock)
+
+    inputHandler.processUserInput()
+    verify(facadeMock).translateImage()
+    verify(facadeMock).loadImage(any[RGBImageImporter])
+    verify(facadeMock).addExporter(any[StreamTextExporter])
+    verify(facadeMock).setCustomTransformationTable(" .:-=+*#%@")
+  }
 }
