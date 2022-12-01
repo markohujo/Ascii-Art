@@ -2,8 +2,9 @@ package converters
 
 import app.models.pixel.{AsciiPixel, GrayscalePixel}
 import app.models.{Image, PixelGrid}
-import converters.pixel.GrayscaleToAsciiConverter
+import converters.pixel.LinearGrayscaleToAsciiConverter
 import org.scalatest.FunSuite
+import utils.Constants
 
 class GrayscaleToAsciiConverterTest extends FunSuite {
 
@@ -12,7 +13,7 @@ class GrayscaleToAsciiConverterTest extends FunSuite {
     Seq(GrayscalePixel(202), GrayscalePixel(0), GrayscalePixel(251))
   )))
 
-  private val converter = new GrayscaleToAsciiConverter
+  private val converter = new LinearGrayscaleToAsciiConverter
 
   test("grayscale to ascii converter test") {
     val convertedImage = image.transform(converter.convert)
@@ -24,8 +25,7 @@ class GrayscaleToAsciiConverterTest extends FunSuite {
   }
 
   private def correctAsciiValue(value: Int): AsciiPixel = {
-    val chars = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
-    AsciiPixel(chars.charAt((chars.length - 1) * value / 255))
+    AsciiPixel(Constants.DefaultTransformationTable.charAt((Constants.DefaultTransformationTable.length - 1) * value / 255))
   }
 
 }
