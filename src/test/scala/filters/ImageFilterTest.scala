@@ -1,9 +1,9 @@
 package filters
 
 import app.models.{Image, PixelGrid}
-import app.models.pixel.{AsciiPixel, GrayscalePixel}
+import app.models.pixel.{AsciiPixel, GreyscalePixel}
 import filters.image.ascii.RotateImageFilter
-import filters.image.grayscale.{BrightnessImageFilter, InvertImageFilter}
+import filters.image.greyscale.{BrightnessImageFilter, InvertImageFilter}
 import org.scalatest.FunSuite
 
 class ImageFilterTest extends FunSuite {
@@ -14,8 +14,8 @@ class ImageFilterTest extends FunSuite {
   )))
 
   private val grayscaleImage = Image(PixelGrid(Seq(
-    Seq(GrayscalePixel(255), GrayscalePixel(0), GrayscalePixel(100)),
-    Seq(GrayscalePixel(255), GrayscalePixel(0), GrayscalePixel(100)),
+    Seq(GreyscalePixel(255), GreyscalePixel(0), GreyscalePixel(100)),
+    Seq(GreyscalePixel(255), GreyscalePixel(0), GreyscalePixel(100)),
   )))
 
   test("test brightness filter") {

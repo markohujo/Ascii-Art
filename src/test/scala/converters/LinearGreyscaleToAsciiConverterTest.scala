@@ -1,19 +1,19 @@
 package converters
 
-import app.models.pixel.{AsciiPixel, GrayscalePixel}
+import app.models.pixel.{AsciiPixel, GreyscalePixel}
 import app.models.{Image, PixelGrid}
-import converters.pixel.LinearGrayscaleToAsciiConverter
+import converters.pixel.LinearGreyscaleToAsciiConverter
 import org.scalatest.FunSuite
 import utils.Constants
 
-class GrayscaleToAsciiConverterTest extends FunSuite {
+class LinearGreyscaleToAsciiConverterTest extends FunSuite {
 
   private val image = Image(PixelGrid(Seq(
-    Seq(GrayscalePixel(255), GrayscalePixel(151), GrayscalePixel(100)),
-    Seq(GrayscalePixel(202), GrayscalePixel(0), GrayscalePixel(251))
+    Seq(GreyscalePixel(255), GreyscalePixel(151), GreyscalePixel(100)),
+    Seq(GreyscalePixel(202), GreyscalePixel(0), GreyscalePixel(251))
   )))
 
-  private val converter = new LinearGrayscaleToAsciiConverter
+  private val converter = new LinearGreyscaleToAsciiConverter
 
   test("grayscale to ascii converter test") {
     val convertedImage = image.transform(converter.convert)

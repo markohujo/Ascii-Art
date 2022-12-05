@@ -1,6 +1,6 @@
 package converters
 
-import app.models.pixel.{GrayscalePixel, RGBPixel}
+import app.models.pixel.{GreyscalePixel, RGBPixel}
 import app.models.{Image, PixelGrid}
 import converters.pixel.RGBToGrayscaleConverter
 import org.scalatest.FunSuite
@@ -27,5 +27,5 @@ class RGBToGrayscaleConverterTest extends FunSuite {
     }
   }
 
-  private def correctGrayscaleValue(red: Int, green: Int, blue: Int): GrayscalePixel = GrayscalePixel((red * 0.3 + green * 0.59 + blue * 0.11).toInt)
+  private def correctGrayscaleValue(red: Int, green: Int, blue: Int): GreyscalePixel = GreyscalePixel((red * 0.3 + green * 0.59 + blue * 0.11).toInt)
 }

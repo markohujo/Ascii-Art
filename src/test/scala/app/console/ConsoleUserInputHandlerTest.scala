@@ -3,7 +3,7 @@ package app.console
 import app.facades.ImageFacade
 import exporters.text.stream.StreamTextExporter
 import filters.image.ascii.AsciiImageFilter
-import filters.image.grayscale.GrayscaleImageFilter
+import filters.image.greyscale.GreyscaleImageFilter
 import importers.image.rgb.RGBImageImporter
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{times, verify}
@@ -44,61 +44,61 @@ class ConsoleUserInputHandlerTest extends FunSuite {
 
   test("verify translate image and load image call") {
     val facadeMock = mock[ImageFacade]
-    val controller = new ConsoleUserInputHandler(List("--image", "filepath.png"), facadeMock)
+    val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png"), facadeMock)
 
-    controller.processUserInput()
+    inputHandler.processUserInput()
     verify(facadeMock).translateImage()
     verify(facadeMock).loadImage(any[RGBImageImporter])
     verify(facadeMock, times(0)).addExporter(any[StreamTextExporter])
-    verify(facadeMock, times(0)).addGrayscaleFilter(any[GrayscaleImageFilter])
+    verify(facadeMock, times(0)).addGrayscaleFilter(any[GreyscaleImageFilter])
     verify(facadeMock, times(0)).addAsciiFilter(any[AsciiImageFilter])
   }
 
   test("verify export call") {
     val facadeMock = mock[ImageFacade]
-    val controller = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console"), facadeMock)
+    val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console"), facadeMock)
 
-    controller.processUserInput()
+    inputHandler.processUserInput()
     verify(facadeMock).translateImage()
     verify(facadeMock).loadImage(any[RGBImageImporter])
     verify(facadeMock).addExporter(any[StreamTextExporter])
-    verify(facadeMock, times(0)).addGrayscaleFilter(any[GrayscaleImageFilter])
+    verify(facadeMock, times(0)).addGrayscaleFilter(any[GreyscaleImageFilter])
     verify(facadeMock, times(0)).addAsciiFilter(any[AsciiImageFilter])
   }
 
   test("verify 2 export calls") {
     val facadeMock = mock[ImageFacade]
-    val controller = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console", "--output-file", "outputs/output.txt"), facadeMock)
+    val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console", "--output-file", "outputs/output.txt"), facadeMock)
 
-    controller.processUserInput()
+    inputHandler.processUserInput()
     verify(facadeMock).translateImage()
     verify(facadeMock).loadImage(any[RGBImageImporter])
     verify(facadeMock, times(2)).addExporter(any[StreamTextExporter])
-    verify(facadeMock, times(0)).addGrayscaleFilter(any[GrayscaleImageFilter])
+    verify(facadeMock, times(0)).addGrayscaleFilter(any[GreyscaleImageFilter])
     verify(facadeMock, times(0)).addAsciiFilter(any[AsciiImageFilter])
   }
 
   test("verify 3 export calls") {
     val facadeMock = mock[ImageFacade]
-    val controller = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console", "--output-file", "outputs/output.txt", "--output-file", "outputs/another-output.txt"), facadeMock)
+    val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console", "--output-file", "outputs/output.txt", "--output-file", "outputs/another-output.txt"), facadeMock)
 
-    controller.processUserInput()
+    inputHandler.processUserInput()
     verify(facadeMock).translateImage()
     verify(facadeMock).loadImage(any[RGBImageImporter])
     verify(facadeMock, times(3)).addExporter(any[StreamTextExporter])
-    verify(facadeMock, times(0)).addGrayscaleFilter(any[GrayscaleImageFilter])
+    verify(facadeMock, times(0)).addGrayscaleFilter(any[GreyscaleImageFilter])
     verify(facadeMock, times(0)).addAsciiFilter(any[AsciiImageFilter])
   }
 
   test("verify filter calls") {
     val facadeMock = mock[ImageFacade]
-    val controller = new ConsoleUserInputHandler(List("--image", "filepath.png", "--brightness", "+30", "--output-console", "--output-file", "outputs/output.txt", "--rotate", "-90", "--invert"), facadeMock)
+    val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--brightness", "+30", "--output-console", "--output-file", "outputs/output.txt", "--rotate", "-90", "--invert"), facadeMock)
 
-    controller.processUserInput()
+    inputHandler.processUserInput()
     verify(facadeMock).translateImage()
     verify(facadeMock).loadImage(any[RGBImageImporter])
     verify(facadeMock, times(2)).addExporter(any[StreamTextExporter])
-    verify(facadeMock, times(2)).addGrayscaleFilter(any[GrayscaleImageFilter])
+    verify(facadeMock, times(2)).addGrayscaleFilter(any[GreyscaleImageFilter])
     verify(facadeMock).addAsciiFilter(any[AsciiImageFilter])
   }
 

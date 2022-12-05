@@ -1,6 +1,6 @@
 package app.models
 
-import app.models.pixel.{GrayscalePixel, RGBPixel}
+import app.models.pixel.{GreyscalePixel, RGBPixel}
 import org.scalatest.FunSuite
 
 import java.awt.Color
@@ -9,10 +9,10 @@ class PixelTests extends FunSuite {
 
   test("invalid grayscale value test") {
     assertThrows[IllegalArgumentException] {
-      GrayscalePixel(300)
+      GreyscalePixel(300)
     }
     assertThrows[IllegalArgumentException] {
-      GrayscalePixel(-1)
+      GreyscalePixel(-1)
     }
   }
 
@@ -29,12 +29,12 @@ class PixelTests extends FunSuite {
   }
 
   test("valid grayscale value test") {
-    val pixel = GrayscalePixel(255)
+    val pixel = GreyscalePixel(255)
     assert(pixel.value == 255)
   }
 
   test("valid ascii value test") {
-    val pixel = GrayscalePixel('#')
+    val pixel = GreyscalePixel('#')
     assert(pixel.value == '#')
   }
 }

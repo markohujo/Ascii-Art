@@ -3,7 +3,7 @@ package app.console
 import app.facades.ImageFacade
 import exporters.text.stream.{ConsoleTextExporter, FileTextExporter}
 import filters.image.ascii.RotateImageFilter
-import filters.image.grayscale.{BrightnessImageFilter, InvertImageFilter}
+import filters.image.greyscale.{BrightnessImageFilter, InvertImageFilter}
 import importers.image.rgb.input.{FileInputRGBImageImporter, URLInputRGBImageImporter}
 import importers.image.rgb.random.RandomRGBImageImporter
 

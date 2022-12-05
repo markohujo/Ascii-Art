@@ -1,14 +1,14 @@
 package converters.pixel
 
-import app.models.pixel.{AsciiPixel, GrayscalePixel}
+import app.models.pixel.{AsciiPixel, GreyscalePixel}
 import utils.Constants
 
 /**
  *
  * @param transformationTable characters used as linear transformation table
  */
-class LinearGrayscaleToAsciiConverter(transformationTable: String = Constants.DefaultTransformationTable)
-    extends GrayscaleToAsciiConverter(transformationTable) {
+class LinearGreyscaleToAsciiConverter(transformationTable: String = Constants.DefaultTransformationTable)
+    extends GreyscaleToAsciiConverter(transformationTable) {
 
   /**
    * Converts greyscale pixel to ascii pixel
@@ -16,7 +16,7 @@ class LinearGrayscaleToAsciiConverter(transformationTable: String = Constants.De
    * @param item greyscale pixel to convert
    * @return converted ascii pixel
    */
-  override def convert(item: GrayscalePixel): AsciiPixel = {
+  override def convert(item: GreyscalePixel): AsciiPixel = {
     val index = (transformationTable.length - 1) * item.value / 255
     AsciiPixel(transformationTable.charAt(index))
   }

@@ -1,25 +1,25 @@
 package app.facades
 
 import app.models.Image
-import app.models.pixel.{AsciiPixel, GrayscalePixel, RGBPixel}
+import app.models.pixel.{AsciiPixel, GreyscalePixel, RGBPixel}
 import converters.imageToText.AsciiImageToTextConverter
-import converters.pixel.{GrayscaleToAsciiConverter, LinearGrayscaleToAsciiConverter, NonLinearGrayscaleToAsciiConverter, RGBToGrayscaleConverter}
+import converters.pixel.{GreyscaleToAsciiConverter, LinearGreyscaleToAsciiConverter, NonLinearGreyscaleToAsciiConverter, RGBToGrayscaleConverter}
 import exporters.text.stream.StreamTextExporter
 import filters.image.ascii.AsciiImageFilter
-import filters.image.grayscale.GrayscaleImageFilter
+import filters.image.greyscale.GreyscaleImageFilter
 import importers.image.rgb.RGBImageImporter
 import utils.Constants
 
 class ImageFacade {
 
   private val RGBToGrayscaleConverter = new RGBToGrayscaleConverter
-  private var grayscaleToAsciiConverter: GrayscaleToAsciiConverter = new LinearGrayscaleToAsciiConverter
+  private var grayscaleToAsciiConverter: GreyscaleToAsciiConverter = new LinearGreyscaleToAsciiConverter
   private val asciiToTextConverter = new AsciiImageToTextConverter
 
   private var image: Image[RGBPixel] = _
-  private var grayscaleImage: Image[GrayscalePixel] = _
+  private var grayscaleImage: Image[GreyscalePixel] = _
   private var asciiImage: Image[AsciiPixel] = _
-  private var grayscaleFilters: Seq[GrayscaleImageFilter] = Seq.empty
+  private var grayscaleFilters: Seq[GreyscaleImageFilter] = Seq.empty
   private var asciiFilters: Seq[AsciiImageFilter] = Seq.empty
   private var exporters: Seq[StreamTextExporter] = Seq.empty
 
@@ -30,7 +30,7 @@ class ImageFacade {
    */
   def loadImage(importer: RGBImageImporter): Unit = image = importer.load
 
-  def addGrayscaleFilter(filter: GrayscaleImageFilter): Unit =
+  def addGrayscaleFilter(filter: GreyscaleImageFilter): Unit =
     grayscaleFilters = grayscaleFilters.appended(filter)
 
   def addAsciiFilter(filter: AsciiImageFilter): Unit =
@@ -41,16 +41,16 @@ class ImageFacade {
 
   def setPredefinedTransformationTable(tableName: String): Unit = {
     tableName match {
-      case "linear" => grayscaleToAsciiConverter = new LinearGrayscaleToAsciiConverter
-      case "non-linear" | "nonlinear" => grayscaleToAsciiConverter = new NonLinearGrayscaleToAsciiConverter
+      case "linear" => grayscaleToAsciiConverter = new LinearGreyscaleToAsciiConverter
+      case "non-linear" | "nonlinear" => grayscaleToAsciiConverter = new NonLinearGreyscaleToAsciiConverter
       case "simplified" | "linear-simplified" | "simple" | "linear-simple" =>
-        grayscaleToAsciiConverter = new LinearGrayscaleToAsciiConverter(Constants.DefaultSimplifiedTransformationTable)
+        grayscaleToAsciiConverter = new LinearGreyscaleToAsciiConverter(Constants.DefaultSimplifiedTransformationTable)
       case _ => throw new IllegalArgumentException("Undefined transformation table name \"" + tableName + "\".")
     }
   }
 
   def setCustomTransformationTable(characters: String): Unit =
-    grayscaleToAsciiConverter = new LinearGrayscaleToAsciiConverter(characters)
+    grayscaleToAsciiConverter = new LinearGreyscaleToAsciiConverter(characters)
 
   /**
    * Translates image by converting it from rgb to ascii, applying filters and exporting it

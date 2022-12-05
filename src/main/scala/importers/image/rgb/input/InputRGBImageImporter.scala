@@ -8,6 +8,7 @@ import java.awt.Color
 import java.awt.image.BufferedImage
 
 trait InputRGBImageImporter extends RGBImageImporter {
+
   /**
    * Constructs pixel grid and image consisting of RGB pixels from the given buffered image
    *
@@ -24,6 +25,6 @@ trait InputRGBImageImporter extends RGBImageImporter {
       pixels = pixels.appended(pixelRow)
     }
 
-    new Image[RGBPixel](new PixelGrid[RGBPixel](pixels))
+    Image[RGBPixel](PixelGrid[RGBPixel](pixels))
   }
 }
