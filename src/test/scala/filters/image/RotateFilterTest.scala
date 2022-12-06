@@ -1,7 +1,7 @@
-package filters
+package filters.image
 
-import app.models.{Image, PixelGrid}
 import app.models.pixel.AsciiPixel
+import app.models.{Image, PixelGrid}
 import filters.image.ascii.RotateImageFilter
 import org.scalatest.FunSuite
 

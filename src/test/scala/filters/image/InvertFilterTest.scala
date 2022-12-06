@@ -1,4 +1,4 @@
-package filters
+package filters.image
 
 import app.models.pixel.GreyscalePixel
 import app.models.{Image, PixelGrid}

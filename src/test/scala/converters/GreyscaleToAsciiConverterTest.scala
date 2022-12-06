@@ -2,7 +2,7 @@ package converters
 
 import app.models.pixel.{AsciiPixel, GreyscalePixel}
 import app.models.{Image, PixelGrid}
-import converters.pixel.GreyscaleToAsciiConverter
+import converters.pixel.{GreyscaleToAsciiConverter, LinearGreyscaleToAsciiConverter}
 import org.scalatest.FunSuite
 
 trait GreyscaleToAsciiConverterTest[T <: GreyscaleToAsciiConverter] extends FunSuite {

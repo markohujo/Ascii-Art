@@ -8,6 +8,12 @@ class LinearGreyscaleToAsciiConverterTest extends GreyscaleToAsciiConverterTest[
 
   converter = new LinearGreyscaleToAsciiConverter
 
+  test("greyscale to ascii converter test - empty transformation table") {
+    assertThrows[IllegalArgumentException] {
+      new LinearGreyscaleToAsciiConverter("")
+    }
+  }
+
   override def correctAsciiValue(value: Int): AsciiPixel = {
     AsciiPixel(Constants.DefaultTransformationTable.charAt((Constants.DefaultTransformationTable.length - 1) * value / 255))
   }
