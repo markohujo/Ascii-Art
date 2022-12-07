@@ -10,7 +10,7 @@ import utils.Constants
 class LinearGreyscaleToAsciiConverter(transformationTable: String = Constants.DefaultTransformationTable)
     extends GreyscaleToAsciiConverter {
 
-  if (transformationTable.isEmpty || transformationTable.isBlank)
+  if (transformationTable.isEmpty || transformationTable.trim.isEmpty)
     throw new IllegalArgumentException("Empty transformation table")
 
   override def convert(item: GreyscalePixel): AsciiPixel = {
