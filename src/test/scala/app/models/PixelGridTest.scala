@@ -1,40 +1,40 @@
 package app.models
 
-import app.models.pixel.RGBPixel
+import app.models.pixel.RgbPixel
 import org.scalatest.FunSuite
 
 import java.awt.Color
 
 class PixelGridTest extends FunSuite {
 
-  val pixelGrid: PixelGrid[RGBPixel] = createValidPixelGrid()
+  val pixelGrid: PixelGrid[RgbPixel] = createValidPixelGrid()
 
   test("empty pixels") {
-    val pixels = Seq.empty[Seq[RGBPixel]]
+    val pixels = Seq.empty[Seq[RgbPixel]]
     assertThrows[IllegalArgumentException] {
-      new PixelGrid[RGBPixel](pixels)
+      new PixelGrid[RgbPixel](pixels)
     }
   }
 
   test("invalid pixels - empty row") {
     val pixels = Seq(
-      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN)),
+      Seq(RgbPixel(Color.BLACK), RgbPixel(Color.GREEN)),
       Seq.empty,
-      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN))
+      Seq(RgbPixel(Color.BLACK), RgbPixel(Color.GREEN))
     )
     assertThrows[IllegalArgumentException] {
-      new PixelGrid[RGBPixel](pixels)
+      new PixelGrid[RgbPixel](pixels)
     }
   }
 
   test("invalid pixels - invalid size") {
     val pixels = Seq(
-      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN), RGBPixel(Color.GREEN)),
-      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN)),
-      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN))
+      Seq(RgbPixel(Color.BLACK), RgbPixel(Color.GREEN), RgbPixel(Color.GREEN)),
+      Seq(RgbPixel(Color.BLACK), RgbPixel(Color.GREEN)),
+      Seq(RgbPixel(Color.BLACK), RgbPixel(Color.GREEN))
     )
     assertThrows[IllegalArgumentException] {
-      new PixelGrid[RGBPixel](pixels)
+      new PixelGrid[RgbPixel](pixels)
     }
   }
 
@@ -47,7 +47,7 @@ class PixelGridTest extends FunSuite {
     assert(pixelGrid.height == 3)
     assert(pixelGrid.width == 2)
 
-    val transformedPixelGrid = pixelGrid.transform(_ => RGBPixel(Color.WHITE))
+    val transformedPixelGrid = pixelGrid.transform(_ => RgbPixel(Color.WHITE))
     assert(transformedPixelGrid.height == 3)
     assert(transformedPixelGrid.width == 2)
 
@@ -84,16 +84,16 @@ class PixelGridTest extends FunSuite {
   }
 
   test("test at") {
-    assert(pixelGrid.at(0, 0).equals(RGBPixel(Color.BLACK)))
-    assert(pixelGrid.at(1, 1).equals(RGBPixel(Color.GREEN)))
+    assert(pixelGrid.at(0, 0).equals(RgbPixel(Color.BLACK)))
+    assert(pixelGrid.at(1, 1).equals(RgbPixel(Color.GREEN)))
   }
 
-  private def createValidPixelGrid(): PixelGrid[RGBPixel] = {
+  private def createValidPixelGrid(): PixelGrid[RgbPixel] = {
     val pixels = Seq(
-      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN)),
-      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN)),
-      Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN))
+      Seq(RgbPixel(Color.BLACK), RgbPixel(Color.GREEN)),
+      Seq(RgbPixel(Color.BLACK), RgbPixel(Color.GREEN)),
+      Seq(RgbPixel(Color.BLACK), RgbPixel(Color.GREEN))
     )
-    new PixelGrid[RGBPixel](pixels)
+    new PixelGrid[RgbPixel](pixels)
   }
 }

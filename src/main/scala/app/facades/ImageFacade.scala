@@ -1,22 +1,22 @@
 package app.facades
 
 import app.models.Image
-import app.models.pixel.{AsciiPixel, GreyscalePixel, RGBPixel}
+import app.models.pixel.{AsciiPixel, GreyscalePixel, RgbPixel}
 import converters.imageToText.AsciiImageToTextConverter
-import converters.pixel.{GreyscaleToAsciiConverter, LinearGreyscaleToAsciiConverter, NonLinearGreyscaleToAsciiConverter, RGBToGrayscaleConverter}
+import converters.pixel.{GreyscaleToAsciiConverter, LinearGreyscaleToAsciiConverter, NonLinearGreyscaleToAsciiConverter, RgbToGrayscaleConverter}
 import exporters.text.stream.StreamTextExporter
 import filters.image.ascii.AsciiImageFilter
 import filters.image.greyscale.GreyscaleImageFilter
-import importers.image.rgb.RGBImageImporter
+import importers.image.rgb.RgbImageImporter
 import utils.Constants
 
 class ImageFacade {
 
-  private val RGBToGrayscaleConverter = new RGBToGrayscaleConverter
+  private val RGBToGrayscaleConverter = new RgbToGrayscaleConverter
   private var grayscaleToAsciiConverter: GreyscaleToAsciiConverter = new LinearGreyscaleToAsciiConverter
   private val asciiToTextConverter = new AsciiImageToTextConverter
 
-  private var image: Option[Image[RGBPixel]] = None
+  private var image: Option[Image[RgbPixel]] = None
   private var greyscaleImage: Option[Image[GreyscalePixel]] = None
   private var asciiImage: Option[Image[AsciiPixel]] = None
   private var grayscaleFilters: Seq[GreyscaleImageFilter] = Seq.empty
@@ -28,7 +28,7 @@ class ImageFacade {
    *
    * @param importer - image importer
    */
-  def loadImage(importer: RGBImageImporter): Unit = image = Some(importer.load)
+  def loadImage(importer: RgbImageImporter): Unit = image = Some(importer.load)
 
   def addGrayscaleFilter(filter: GreyscaleImageFilter): Unit =
     grayscaleFilters = grayscaleFilters.appended(filter)

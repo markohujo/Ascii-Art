@@ -2,9 +2,9 @@ package app.facades
 
 
 import app.models.Image
-import app.models.pixel.{AsciiPixel, GreyscalePixel, RGBPixel}
+import app.models.pixel.{AsciiPixel, GreyscalePixel, RgbPixel}
 import filters.image.greyscale.BrightnessImageFilter
-import importers.image.rgb.RGBImageImporter
+import importers.image.rgb.RgbImageImporter
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{verify, when}
 import org.mockito.MockitoSugar.mock
@@ -15,7 +15,7 @@ class ImageFacadeTest extends FunSuite {
   private val facade: ImageFacade = new ImageFacade
 
   test("load image test") {
-    val importerMock = mock[RGBImageImporter]
+    val importerMock = mock[RgbImageImporter]
     facade.loadImage(importerMock)
     verify(importerMock).load
   }
@@ -33,20 +33,20 @@ class ImageFacadeTest extends FunSuite {
   }
 
   test("translate image test") {
-    val importerMock = mock[RGBImageImporter]
-    val imageMock = mock[Image[RGBPixel]]
+    val importerMock = mock[RgbImageImporter]
+    val imageMock = mock[Image[RgbPixel]]
     val greyscaleImageMock = mock[Image[GreyscalePixel]]
     val asciiImageMock = mock[Image[AsciiPixel]]
 
     when(importerMock.load).thenReturn(imageMock)
-    when(imageMock.transform(any[RGBPixel => GreyscalePixel])).thenReturn(greyscaleImageMock)
+    when(imageMock.transform(any[RgbPixel => GreyscalePixel])).thenReturn(greyscaleImageMock)
     when(greyscaleImageMock.transform(any[GreyscalePixel => AsciiPixel])).thenReturn(asciiImageMock)
 
     facade.loadImage(importerMock)
     facade.translateImage()
 
     verify(importerMock).load
-    verify(imageMock).transform(any[RGBPixel => GreyscalePixel])
+    verify(imageMock).transform(any[RgbPixel => GreyscalePixel])
     verify(greyscaleImageMock).transform(any[GreyscalePixel => AsciiPixel])
   }
 }

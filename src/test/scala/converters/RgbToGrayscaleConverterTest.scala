@@ -1,22 +1,22 @@
 package converters
 
-import app.models.pixel.{GreyscalePixel, RGBPixel}
+import app.models.pixel.{GreyscalePixel, RgbPixel}
 import app.models.{Image, PixelGrid}
-import converters.pixel.RGBToGrayscaleConverter
+import converters.pixel.RgbToGrayscaleConverter
 import org.scalatest.FunSuite
 
 import java.awt.Color
 
-class RGBToGrayscaleConverterTest extends FunSuite {
+class RgbToGrayscaleConverterTest extends FunSuite {
 
   private val image = Image(PixelGrid(Seq(
-    Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN)),
-    Seq(RGBPixel(Color.RED), RGBPixel(Color.BLUE)),
-    Seq(RGBPixel(Color.WHITE), RGBPixel(Color.GRAY)),
-    Seq(RGBPixel(Color.ORANGE), RGBPixel(Color.CYAN)),
+    Seq(RgbPixel(Color.BLACK), RgbPixel(Color.GREEN)),
+    Seq(RgbPixel(Color.RED), RgbPixel(Color.BLUE)),
+    Seq(RgbPixel(Color.WHITE), RgbPixel(Color.GRAY)),
+    Seq(RgbPixel(Color.ORANGE), RgbPixel(Color.CYAN)),
   )))
 
-  private val converter = new RGBToGrayscaleConverter
+  private val converter = new RgbToGrayscaleConverter
 
   test("rgb to grayscale converter test") {
     val convertedImage = image.transform(converter.convert)

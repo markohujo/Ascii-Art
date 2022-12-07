@@ -4,7 +4,7 @@ import app.facades.ImageFacade
 import exporters.text.stream.StreamTextExporter
 import filters.image.ascii.AsciiImageFilter
 import filters.image.greyscale.GreyscaleImageFilter
-import importers.image.rgb.RGBImageImporter
+import importers.image.rgb.RgbImageImporter
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{times, verify}
 import org.mockito.MockitoSugar.mock
@@ -49,7 +49,7 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     inputHandler.processUserInput()
 
     verify(facadeMock).translateImage()
-    verify(facadeMock).loadImage(any[RGBImageImporter])
+    verify(facadeMock).loadImage(any[RgbImageImporter])
     verify(facadeMock, times(0)).addExporter(any[StreamTextExporter])
     verify(facadeMock, times(0)).addGrayscaleFilter(any[GreyscaleImageFilter])
     verify(facadeMock, times(0)).addAsciiFilter(any[AsciiImageFilter])
@@ -62,7 +62,7 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     inputHandler.processUserInput()
 
     verify(facadeMock).translateImage()
-    verify(facadeMock).loadImage(any[RGBImageImporter])
+    verify(facadeMock).loadImage(any[RgbImageImporter])
     verify(facadeMock).addExporter(any[StreamTextExporter])
     verify(facadeMock, times(0)).addGrayscaleFilter(any[GreyscaleImageFilter])
     verify(facadeMock, times(0)).addAsciiFilter(any[AsciiImageFilter])
@@ -75,7 +75,7 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     inputHandler.processUserInput()
 
     verify(facadeMock).translateImage()
-    verify(facadeMock).loadImage(any[RGBImageImporter])
+    verify(facadeMock).loadImage(any[RgbImageImporter])
     verify(facadeMock, times(2)).addExporter(any[StreamTextExporter])
     verify(facadeMock, times(0)).addGrayscaleFilter(any[GreyscaleImageFilter])
     verify(facadeMock, times(0)).addAsciiFilter(any[AsciiImageFilter])
@@ -88,7 +88,7 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     inputHandler.processUserInput()
 
     verify(facadeMock).translateImage()
-    verify(facadeMock).loadImage(any[RGBImageImporter])
+    verify(facadeMock).loadImage(any[RgbImageImporter])
     verify(facadeMock, times(3)).addExporter(any[StreamTextExporter])
     verify(facadeMock, times(0)).addGrayscaleFilter(any[GreyscaleImageFilter])
     verify(facadeMock, times(0)).addAsciiFilter(any[AsciiImageFilter])
@@ -101,7 +101,7 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     inputHandler.processUserInput()
 
     verify(facadeMock).translateImage()
-    verify(facadeMock).loadImage(any[RGBImageImporter])
+    verify(facadeMock).loadImage(any[RgbImageImporter])
     verify(facadeMock, times(2)).addExporter(any[StreamTextExporter])
     verify(facadeMock, times(2)).addGrayscaleFilter(any[GreyscaleImageFilter])
     verify(facadeMock).addAsciiFilter(any[AsciiImageFilter])
@@ -114,7 +114,7 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     inputHandler.processUserInput()
 
     verify(facadeMock).translateImage()
-    verify(facadeMock).loadImage(any[RGBImageImporter])
+    verify(facadeMock).loadImage(any[RgbImageImporter])
     verify(facadeMock).addExporter(any[StreamTextExporter])
     verify(facadeMock).setPredefinedTransformationTable("linear")
   }
@@ -126,7 +126,7 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     inputHandler.processUserInput()
 
     verify(facadeMock).translateImage()
-    verify(facadeMock).loadImage(any[RGBImageImporter])
+    verify(facadeMock).loadImage(any[RgbImageImporter])
     verify(facadeMock).addExporter(any[StreamTextExporter])
     verify(facadeMock).setCustomTransformationTable(" .:-=+*#%@")
   }

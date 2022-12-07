@@ -4,8 +4,8 @@ import app.facades.ImageFacade
 import exporters.text.stream.{ConsoleTextExporter, FileTextExporter}
 import filters.image.ascii.RotateImageFilter
 import filters.image.greyscale.{BrightnessImageFilter, InvertImageFilter}
-import importers.image.rgb.input.{FileInputRGBImageImporter, URLInputRGBImageImporter}
-import importers.image.rgb.random.RandomRGBImageImporter
+import importers.image.rgb.input.{FileRgbImageImporter, UrlRgbImageImporter}
+import importers.image.rgb.random.RandomRgbImageImporter
 
 /**
  * Handles user input from the console (command line arguments)
@@ -47,13 +47,13 @@ class ConsoleUserInputHandler(private var input: List[String], imageFacade: Imag
     while (input.nonEmpty) {
       input match {
         case "--image" :: path :: tail =>
-          imageFacade.loadImage(new FileInputRGBImageImporter(path))
+          imageFacade.loadImage(new FileRgbImageImporter(path))
           input = tail
         case "--image-url" :: path :: tail =>
-          imageFacade.loadImage(new URLInputRGBImageImporter(path))
+          imageFacade.loadImage(new UrlRgbImageImporter(path))
           input = tail
         case "--image--random" :: tail =>
-          imageFacade.loadImage(new RandomRGBImageImporter)
+          imageFacade.loadImage(new RandomRgbImageImporter)
           input = tail
         case "--brightness" :: value :: tail =>
           imageFacade.addGrayscaleFilter(new BrightnessImageFilter(value.toInt))

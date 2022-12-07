@@ -1,6 +1,6 @@
 package app.models
 
-import app.models.pixel.{GreyscalePixel, RGBPixel}
+import app.models.pixel.{GreyscalePixel, RgbPixel}
 import org.scalatest.FunSuite
 
 import java.awt.Color
@@ -17,12 +17,12 @@ class PixelTests extends FunSuite {
   }
 
   test("valid rgb value test") {
-    var pixel = RGBPixel(Color.BLACK)
+    var pixel = RgbPixel(Color.BLACK)
     assert(pixel.red == 0)
     assert(pixel.green == 0)
     assert(pixel.blue == 0)
 
-    pixel = RGBPixel(Color.WHITE)
+    pixel = RgbPixel(Color.WHITE)
     assert(pixel.red == 255)
     assert(pixel.green == 255)
     assert(pixel.blue == 255)

@@ -1,6 +1,6 @@
 package app.models
 
-import app.models.pixel.RGBPixel
+import app.models.pixel.RgbPixel
 import org.mockito.ArgumentMatchers.{any, anyInt}
 import org.mockito.Mockito.verify
 import org.mockito.MockitoSugar.mock
@@ -8,8 +8,8 @@ import org.scalatest.FunSuite
 
 class ImageTest extends FunSuite {
 
-  private val pixelGridMock = mock[PixelGrid[RGBPixel]]
-  private val image: Image[RGBPixel] = new Image[RGBPixel](pixelGridMock)
+  private val pixelGridMock = mock[PixelGrid[RgbPixel]]
+  private val image: Image[RgbPixel] = new Image[RgbPixel](pixelGridMock)
 
   // feature of transforming an image is already tested in PixelGridTest
   test("transform test - should call pixel grid") {

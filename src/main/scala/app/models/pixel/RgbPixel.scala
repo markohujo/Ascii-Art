@@ -2,7 +2,7 @@ package app.models.pixel
 
 import java.awt.Color
 
-case class RGBPixel(value: Color) extends Pixel {
+case class RgbPixel(value: Color) extends Pixel {
   def red: Int = value.getRed
 
   def green: Int = value.getGreen
