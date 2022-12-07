@@ -8,7 +8,10 @@ import utils.Constants
  * @param transformationTable characters used as linear transformation table
  */
 class LinearGreyscaleToAsciiConverter(transformationTable: String = Constants.DefaultTransformationTable)
-    extends GreyscaleToAsciiConverter(transformationTable) {
+    extends GreyscaleToAsciiConverter {
+
+  if (transformationTable.isEmpty || transformationTable.isBlank)
+    throw new IllegalArgumentException("Empty transformation table")
 
   /**
    * Converts greyscale pixel to ascii pixel

@@ -43,7 +43,7 @@ class ImageFacade {
     tableName match {
       case "linear" => grayscaleToAsciiConverter = new LinearGreyscaleToAsciiConverter
       case "non-linear" | "nonlinear" => grayscaleToAsciiConverter = new NonLinearGreyscaleToAsciiConverter
-      case "simplified" | "linear-simplified" | "simple" | "linear-simple" =>
+      case "simplified" | "simple" =>
         grayscaleToAsciiConverter = new LinearGreyscaleToAsciiConverter(Constants.DefaultSimplifiedTransformationTable)
       case _ => throw new IllegalArgumentException("Undefined transformation table name \"" + tableName + "\".")
     }
