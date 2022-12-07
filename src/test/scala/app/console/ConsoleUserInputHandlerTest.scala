@@ -47,6 +47,7 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png"), facadeMock)
 
     inputHandler.processUserInput()
+
     verify(facadeMock).translateImage()
     verify(facadeMock).loadImage(any[RGBImageImporter])
     verify(facadeMock, times(0)).addExporter(any[StreamTextExporter])
@@ -59,6 +60,7 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console"), facadeMock)
 
     inputHandler.processUserInput()
+
     verify(facadeMock).translateImage()
     verify(facadeMock).loadImage(any[RGBImageImporter])
     verify(facadeMock).addExporter(any[StreamTextExporter])
@@ -71,6 +73,7 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console", "--output-file", "outputs/output.txt"), facadeMock)
 
     inputHandler.processUserInput()
+
     verify(facadeMock).translateImage()
     verify(facadeMock).loadImage(any[RGBImageImporter])
     verify(facadeMock, times(2)).addExporter(any[StreamTextExporter])
@@ -83,6 +86,7 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console", "--output-file", "outputs/output.txt", "--output-file", "outputs/another-output.txt"), facadeMock)
 
     inputHandler.processUserInput()
+
     verify(facadeMock).translateImage()
     verify(facadeMock).loadImage(any[RGBImageImporter])
     verify(facadeMock, times(3)).addExporter(any[StreamTextExporter])
@@ -95,6 +99,7 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--brightness", "+30", "--output-console", "--output-file", "outputs/output.txt", "--rotate", "-90", "--invert"), facadeMock)
 
     inputHandler.processUserInput()
+
     verify(facadeMock).translateImage()
     verify(facadeMock).loadImage(any[RGBImageImporter])
     verify(facadeMock, times(2)).addExporter(any[StreamTextExporter])
@@ -107,6 +112,7 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--table", "linear", "--output-console"), facadeMock)
 
     inputHandler.processUserInput()
+
     verify(facadeMock).translateImage()
     verify(facadeMock).loadImage(any[RGBImageImporter])
     verify(facadeMock).addExporter(any[StreamTextExporter])
@@ -118,6 +124,7 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--custom-table", " .:-=+*#%@", "--output-console"), facadeMock)
 
     inputHandler.processUserInput()
+
     verify(facadeMock).translateImage()
     verify(facadeMock).loadImage(any[RGBImageImporter])
     verify(facadeMock).addExporter(any[StreamTextExporter])

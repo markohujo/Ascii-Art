@@ -22,6 +22,7 @@ class RGBToGrayscaleConverterTest extends FunSuite {
     for (i <- 0 until convertedImage.height) {
       for (j <- 0 until convertedImage.width) {
         val pixel = image.pixelAt(i, j)
+        // TODO
         assert(correctGrayscaleValue(pixel.red, pixel.green, pixel.green) == convertedImage.pixelAt(i, j))
       }
     }

@@ -1,9 +1,9 @@
 package importers
 
-import importers.image.rgb.input.FileInputRGBImageImporter
+import importers.image.rgb.input.{FileInputRGBImageImporter, URLInputRGBImageImporter}
 import org.scalatest.FunSuite
 
-import java.io.File
+import java.io.{File, IOException}
 import javax.imageio.ImageIO
 
 class InputRGBImageImporterTest extends FunSuite {
@@ -24,6 +24,12 @@ class InputRGBImageImporterTest extends FunSuite {
   test("test loading image - invalid file extension") {
     assertThrows[IllegalArgumentException] {
       new FileInputRGBImageImporter("image.svg")
+    }
+  }
+
+  test("test loading image - no file extension") {
+    assertThrows[IllegalArgumentException] {
+      new FileInputRGBImageImporter("idk")
     }
   }
 }

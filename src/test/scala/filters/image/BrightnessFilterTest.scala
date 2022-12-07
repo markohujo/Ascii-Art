@@ -7,7 +7,7 @@ import org.scalatest.FunSuite
 
 class BrightnessFilterTest extends FunSuite {
 
-  private val grayscaleImage = Image(PixelGrid(Seq(
+  private val greyscaleImage = Image(PixelGrid(Seq(
     Seq(GreyscalePixel(255), GreyscalePixel(0), GreyscalePixel(100)),
     Seq(GreyscalePixel(255), GreyscalePixel(0), GreyscalePixel(100)),
   )))
@@ -37,24 +37,41 @@ class BrightnessFilterTest extends FunSuite {
   }
 
   test("test brightness filter identity") {
-    testBrightness(0)
+    val filter = new BrightnessImageFilter(0)
+    val updatedImage = filter.apply(greyscaleImage)
+    assert(greyscaleImage == updatedImage)
+  }
+
+  test("test brightness + brightness") {
+    val values = (10, 15)
+    var filter = new BrightnessImageFilter(values._1)
+    var updatedImage = filter.apply(greyscaleImage)
+    testBrightness(values._1, updatedImage)
+
+    filter = new BrightnessImageFilter(values._2)
+    updatedImage = filter.apply(updatedImage)
+    testBrightness(values._1 + values._2, updatedImage)
   }
 
   private def testBrightness(value: Int): Unit = {
     val filter = new BrightnessImageFilter(value)
-    val updatedImage = filter.apply(grayscaleImage)
+    val updatedImage = filter.apply(greyscaleImage)
 
     if (value == 0) {
-      assert(grayscaleImage == updatedImage)
+      assert(greyscaleImage == updatedImage)
       return
     }
 
-    for (i <- 0 until grayscaleImage.height) {
-      for (j <- 0 until grayscaleImage.width) {
+    testBrightness(value, updatedImage)
+  }
+
+  private def testBrightness(value: Int, updatedImage: Image[GreyscalePixel]): Unit = {
+    for (i <- 0 until greyscaleImage.height) {
+      for (j <- 0 until greyscaleImage.width) {
         if (value > 0)
-          assert(Math.min(grayscaleImage.pixelAt(i, j).value + value, 255) == updatedImage.pixelAt(i, j).value)
+          assert(Math.min(greyscaleImage.pixelAt(i, j).value + value, 255) == updatedImage.pixelAt(i, j).value)
         else
-          assert(Math.max(grayscaleImage.pixelAt(i, j).value + value, 0) == updatedImage.pixelAt(i, j).value)
+          assert(Math.max(greyscaleImage.pixelAt(i, j).value + value, 0) == updatedImage.pixelAt(i, j).value)
       }
     }
   }

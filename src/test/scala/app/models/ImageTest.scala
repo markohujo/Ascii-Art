@@ -11,13 +11,15 @@ class ImageTest extends FunSuite {
   private val pixelGridMock = mock[PixelGrid[RGBPixel]]
   private val image: Image[RGBPixel] = new Image[RGBPixel](pixelGridMock)
 
-  test("transform test should call pixel grid") {
-    image.pixelAt(0, 0)
-    verify(pixelGridMock).at(anyInt(), anyInt())
-  }
-
-  test("pixel at test should call pixel grid") {
+  // feature of transforming an image is already tested in PixelGridTest
+  test("transform test - should call pixel grid") {
     image.transform(any())
     verify(pixelGridMock).transform(any())
+  }
+
+  // feature of getting a pixel at the given coordinates is already tested in PixelGridTest
+  test("pixel at test - should call pixel grid") {
+    image.pixelAt(0, 0)
+    verify(pixelGridMock).at(anyInt(), anyInt())
   }
 }

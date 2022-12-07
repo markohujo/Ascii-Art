@@ -20,13 +20,13 @@ class ImageFacadeTest extends FunSuite {
     verify(importerMock).load
   }
 
-  test("setPredefinedTransformationTable invalid input") {
+  test("setPredefinedTransformationTable test - invalid input - should throw") {
     assertThrows[IllegalArgumentException] {
       facade.setPredefinedTransformationTable("idk")
     }
   }
 
-  test("setPredefinedTransformationTable valid input") {
+  test("setPredefinedTransformationTable test - valid input - should succeed") {
     facade.setPredefinedTransformationTable("linear")
     facade.setPredefinedTransformationTable("simple")
     facade.setPredefinedTransformationTable("non-linear")
