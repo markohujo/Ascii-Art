@@ -16,9 +16,9 @@ class ImageFacade {
   private var grayscaleToAsciiConverter: GreyscaleToAsciiConverter = new LinearGreyscaleToAsciiConverter
   private val asciiToTextConverter = new AsciiImageToTextConverter
 
-  private var image: Image[RGBPixel] = _
-  private var grayscaleImage: Image[GreyscalePixel] = _
-  private var asciiImage: Image[AsciiPixel] = _
+  private var image: Option[Image[RGBPixel]] = None
+  private var greyscaleImage: Option[Image[GreyscalePixel]] = None
+  private var asciiImage: Option[Image[AsciiPixel]] = None
   private var grayscaleFilters: Seq[GreyscaleImageFilter] = Seq.empty
   private var asciiFilters: Seq[AsciiImageFilter] = Seq.empty
   private var exporters: Seq[StreamTextExporter] = Seq.empty
@@ -28,7 +28,7 @@ class ImageFacade {
    *
    * @param importer - image importer
    */
-  def loadImage(importer: RGBImageImporter): Unit = image = importer.load
+  def loadImage(importer: RGBImageImporter): Unit = image = Some(importer.load)
 
   def addGrayscaleFilter(filter: GreyscaleImageFilter): Unit =
     grayscaleFilters = grayscaleFilters.appended(filter)
@@ -72,21 +72,26 @@ class ImageFacade {
   }
 
   private def applyGrayscaleFilters(): Unit = {
-    grayscaleImage = image.transform(RGBToGrayscaleConverter.convert)
-    grayscaleFilters.foreach(filter => grayscaleImage = filter.apply(grayscaleImage))
+    if (image.isEmpty)
+      throw new Exception("Cannot apply filters to an empty image")
+    greyscaleImage = Some(image.get.transform(RGBToGrayscaleConverter.convert))
+    grayscaleFilters.foreach(filter => greyscaleImage = Some(filter.apply(greyscaleImage.get)))
   }
 
   private def applyAsciiFilters(): Unit = {
-    asciiImage = grayscaleImage.transform(grayscaleToAsciiConverter.convert)
-    asciiFilters.foreach(filter => asciiImage = filter.apply(asciiImage))
+    if (greyscaleImage.isEmpty)
+      throw new Exception("Cannot apply filters to an empty image")
+    asciiImage = Some(greyscaleImage.get.transform(grayscaleToAsciiConverter.convert))
+    asciiFilters.foreach(filter => asciiImage = Some(filter.apply(asciiImage.get)))
   }
 
   /**
    * Exports the image to all added save targets
    */
   private def exportImage(): Unit = {
-    val imageText = asciiToTextConverter.convert(asciiImage)
+    if (asciiImage.isEmpty)
+      throw new Exception("Cannot export an empty image")
+    val imageText = asciiToTextConverter.convert(asciiImage.get)
     exporters.foreach(exporter => exporter.save(imageText))
   }
-
 }
