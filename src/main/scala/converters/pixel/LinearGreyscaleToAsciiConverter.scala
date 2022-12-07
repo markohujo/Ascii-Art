@@ -13,12 +13,6 @@ class LinearGreyscaleToAsciiConverter(transformationTable: String = Constants.De
   if (transformationTable.isEmpty || transformationTable.isBlank)
     throw new IllegalArgumentException("Empty transformation table")
 
-  /**
-   * Converts greyscale pixel to ascii pixel
-   *
-   * @param item greyscale pixel to convert
-   * @return converted ascii pixel
-   */
   override def convert(item: GreyscalePixel): AsciiPixel = {
     val index = (transformationTable.length - 1) * item.value / 255
     AsciiPixel(transformationTable.charAt(index))

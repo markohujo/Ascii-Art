@@ -5,12 +5,6 @@ import utils.Constants
 
 class NonLinearGreyscaleToAsciiConverter extends GreyscaleToAsciiConverter {
 
-  /**
-   * Converts greyscale pixel to ascii pixel
-   *
-   * @param item greyscale pixel to convert
-   * @return converted ascii pixel
-   */
   override def convert(item: GreyscalePixel): AsciiPixel = {
     if (item.value < 50)
       return AsciiPixel(Constants.DefaultNonLinearTransformationTable.head)

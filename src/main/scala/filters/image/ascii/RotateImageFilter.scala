@@ -19,6 +19,11 @@ class RotateImageFilter(value: Int) extends AsciiImageFilter {
     }
   }
 
+  /**
+   * Rotates the given image by 90 degrees (clockwise)
+   * @param item image to rotate
+   * @return rotated image
+   */
   private def rotate(item: Image[AsciiPixel]): Image[AsciiPixel] = {
     val result = new ArrayBuffer[ArrayBuffer[AsciiPixel]](item.width)
     for (_ <- 0 until item.width) {
