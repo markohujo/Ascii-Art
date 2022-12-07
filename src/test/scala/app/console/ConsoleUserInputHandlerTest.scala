@@ -10,6 +10,8 @@ import org.mockito.Mockito.{times, verify}
 import org.mockito.MockitoSugar.mock
 import org.scalatest.FunSuite
 
+import java.io.File
+
 class ConsoleUserInputHandlerTest extends FunSuite {
 
   test("empty args") {
@@ -69,8 +71,10 @@ class ConsoleUserInputHandlerTest extends FunSuite {
   }
 
   test("verify 2 export calls") {
+    val outputPath = "tmp-output.txt"
+
     val facadeMock = mock[ImageFacade]
-    val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console", "--output-file", "outputs/output.txt"), facadeMock)
+    val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console", "--output-file", outputPath), facadeMock)
 
     inputHandler.processUserInput()
 
@@ -79,11 +83,16 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     verify(facadeMock, times(2)).addExporter(any[StreamTextExporter])
     verify(facadeMock, times(0)).addGrayscaleFilter(any[GreyscaleImageFilter])
     verify(facadeMock, times(0)).addAsciiFilter(any[AsciiImageFilter])
+
+    clean(outputPath)
   }
 
   test("verify 3 export calls") {
+    val outputPath1 = "tmp-output1.txt"
+    val outputPath2 = "tmp-output2.txt"
+
     val facadeMock = mock[ImageFacade]
-    val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console", "--output-file", "outputs/output.txt", "--output-file", "outputs/another-output.txt"), facadeMock)
+    val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--output-console", "--output-file", outputPath1, "--output-file", outputPath2), facadeMock)
 
     inputHandler.processUserInput()
 
@@ -92,11 +101,16 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     verify(facadeMock, times(3)).addExporter(any[StreamTextExporter])
     verify(facadeMock, times(0)).addGrayscaleFilter(any[GreyscaleImageFilter])
     verify(facadeMock, times(0)).addAsciiFilter(any[AsciiImageFilter])
+
+    clean(outputPath1)
+    clean(outputPath2)
   }
 
   test("verify filter calls") {
+    val outputPath = "tmp-output.txt"
+
     val facadeMock = mock[ImageFacade]
-    val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--brightness", "+30", "--output-console", "--output-file", "outputs/output.txt", "--rotate", "-90", "--invert"), facadeMock)
+    val inputHandler = new ConsoleUserInputHandler(List("--image", "filepath.png", "--brightness", "+30", "--output-console", "--output-file", outputPath, "--rotate", "-90", "--invert"), facadeMock)
 
     inputHandler.processUserInput()
 
@@ -105,6 +119,8 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     verify(facadeMock, times(2)).addExporter(any[StreamTextExporter])
     verify(facadeMock, times(2)).addGrayscaleFilter(any[GreyscaleImageFilter])
     verify(facadeMock).addAsciiFilter(any[AsciiImageFilter])
+
+    clean(outputPath)
   }
 
   test("verify setPredefinedTable call") {
@@ -130,4 +146,6 @@ class ConsoleUserInputHandlerTest extends FunSuite {
     verify(facadeMock).addExporter(any[StreamTextExporter])
     verify(facadeMock).setCustomTransformationTable(" .:-=+*#%@")
   }
+
+  private def clean(path: String): Boolean = new File(path).delete()
 }
