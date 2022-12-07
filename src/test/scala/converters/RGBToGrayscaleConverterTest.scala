@@ -10,23 +10,23 @@ import java.awt.Color
 class RGBToGrayscaleConverterTest extends FunSuite {
 
   private val image = Image(PixelGrid(Seq(
-    Seq(RGBPixel(Color.BLACK), RGBPixel(Color.BLACK)),
-    Seq(RGBPixel(Color.CYAN), RGBPixel(Color.CYAN)),
-    Seq(RGBPixel(Color.WHITE), RGBPixel(Color.WHITE))
+    Seq(RGBPixel(Color.BLACK), RGBPixel(Color.GREEN)),
+    Seq(RGBPixel(Color.RED), RGBPixel(Color.BLUE)),
+    Seq(RGBPixel(Color.WHITE), RGBPixel(Color.GRAY)),
+    Seq(RGBPixel(Color.ORANGE), RGBPixel(Color.CYAN)),
   )))
 
   private val converter = new RGBToGrayscaleConverter
 
   test("rgb to grayscale converter test") {
     val convertedImage = image.transform(converter.convert)
-    for (i <- 0 until convertedImage.height) {
-      for (j <- 0 until convertedImage.width) {
-        val pixel = image.pixelAt(i, j)
-        // TODO
-        assert(correctGrayscaleValue(pixel.red, pixel.green, pixel.green) == convertedImage.pixelAt(i, j))
-      }
-    }
+    assert(convertedImage.pixelAt(0, 0).value == 0)
+    assert(convertedImage.pixelAt(0, 1).value == 150)
+    assert(convertedImage.pixelAt(1, 0).value == 76)
+    assert(convertedImage.pixelAt(1, 1).value == 28)
+    assert(convertedImage.pixelAt(2, 0).value == 255)
+    assert(convertedImage.pixelAt(2, 1).value == 127)
+    assert(convertedImage.pixelAt(3, 0).value == 194)
+    assert(convertedImage.pixelAt(3, 1).value == 178)
   }
-
-  private def correctGrayscaleValue(red: Int, green: Int, blue: Int): GreyscalePixel = GreyscalePixel((red * 0.3 + green * 0.59 + blue * 0.11).toInt)
 }
