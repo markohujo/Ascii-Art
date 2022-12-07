@@ -12,6 +12,18 @@ class RotateFilterTest extends FunSuite {
     Seq(AsciiPixel('D'), AsciiPixel('E'), AsciiPixel('F')),
   )))
 
+  test("test rotate invalid value") {
+    assertThrows[IllegalArgumentException] {
+      new RotateImageFilter(100)
+    }
+    assertThrows[IllegalArgumentException] {
+      new RotateImageFilter(-10)
+    }
+    assertThrows[IllegalArgumentException] {
+      new RotateImageFilter(370)
+    }
+  }
+
   test("test rotate 0") {
     val filter = new RotateImageFilter(0)
     val rotatedImage = filter.apply(asciiImage)
