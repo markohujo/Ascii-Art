@@ -42,19 +42,19 @@ class BrightnessFilterTest extends FunSuite {
 
   private def testBrightness(value: Int): Unit = {
     val filter = new BrightnessImageFilter(value)
-    val invertedImage = filter.apply(grayscaleImage)
+    val updatedImage = filter.apply(grayscaleImage)
 
     if (value == 0) {
-      assert(grayscaleImage == invertedImage)
+      assert(grayscaleImage == updatedImage)
       return
     }
 
     for (i <- 0 until grayscaleImage.height) {
       for (j <- 0 until grayscaleImage.width) {
         if (value > 0)
-          assert(Math.min(grayscaleImage.pixelAt(i, j).value + value, 255) == invertedImage.pixelAt(i, j).value)
+          assert(Math.min(grayscaleImage.pixelAt(i, j).value + value, 255) == updatedImage.pixelAt(i, j).value)
         else
-          assert(Math.max(grayscaleImage.pixelAt(i, j).value + value, 0) == invertedImage.pixelAt(i, j).value)
+          assert(Math.max(grayscaleImage.pixelAt(i, j).value + value, 0) == updatedImage.pixelAt(i, j).value)
       }
     }
   }

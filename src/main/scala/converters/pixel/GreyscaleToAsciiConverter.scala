@@ -10,5 +10,5 @@ abstract class GreyscaleToAsciiConverter(transformationTable: String)
     extends PixelConverter[GreyscalePixel, AsciiPixel] {
 
   if (transformationTable.isEmpty)
-    throw new IllegalArgumentException("Empty transofmation table")
+    throw new IllegalArgumentException("Empty transformation table")
 }

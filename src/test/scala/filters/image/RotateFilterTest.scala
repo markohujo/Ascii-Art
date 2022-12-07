@@ -50,13 +50,15 @@ class RotateFilterTest extends FunSuite {
     val filter = new RotateImageFilter(-180)
     val rotatedImage = filter.apply(asciiImage)
     assert(rotatedImage.height == asciiImage.height && rotatedImage.width == asciiImage.width)
-    assert180(rotatedImage)  }
+    assert180(rotatedImage)
+  }
 
   test("test rotate 540") {
     val filter = new RotateImageFilter(540)
     val rotatedImage = filter.apply(asciiImage)
     assert(rotatedImage.height == asciiImage.height && rotatedImage.width == asciiImage.width)
-    assert180(rotatedImage)  }
+    assert180(rotatedImage)
+  }
 
   test("test rotate 270") {
     val filter = new RotateImageFilter(270)
@@ -69,13 +71,15 @@ class RotateFilterTest extends FunSuite {
     val filter = new RotateImageFilter(-90)
     val rotatedImage = filter.apply(asciiImage)
     assert(rotatedImage.height == asciiImage.width && rotatedImage.width == asciiImage.height)
-    assert270(rotatedImage)  }
+    assert270(rotatedImage)
+  }
 
   test("test rotate 630") {
     val filter = new RotateImageFilter(630)
     val rotatedImage = filter.apply(asciiImage)
     assert(rotatedImage.height == asciiImage.width && rotatedImage.width == asciiImage.height)
-    assert270(rotatedImage)  }
+    assert270(rotatedImage)
+  }
 
   private def assert90(rotatedImage: Image[AsciiPixel]): Unit = {
     assert(rotatedImage.pixelAt(0, 0).value == 'D')
