@@ -1,13 +1,9 @@
 # ASCII Art
 
-[![pipeline status](https://gitlab.fit.cvut.cz/BI-OOP/B201/asciiart/badges/master/pipeline.svg)](https://gitlab.fit.cvut.cz/BI-OOP/B201/asciiart)
+The idea of this project is to load images, translate them into ASCII ART images, optionally apply filters, and save them.
 
-The idea of this project is to load images, translate them into ASCII ART images, optionally apply filters, and save them. (https://courses.fit.cvut.cz/BI-OOP/projects/ASCII-art.html)
+## Example run
 
-## How to do it
+After running `sbt run --image "examples/homer2.jpg" --brightness +10 --output-file "outputs/result.txt"`, [result](outputs/result.txt) looks like this:
 
-1. **Make your repository private**
-2. **Read [the instructions](https://courses.fit.cvut.cz/BI-OOP/projects/ASCII-art.html)**
-3. Play [lofi hip hop radio](https://www.youtube.com/watch?v=jfKfPfyJRdk)
-4. [???](https://www.youtube.com/watch?v=ZXsQAXx_ao0)
-5. Profit
+![result](outputs/result.png)
